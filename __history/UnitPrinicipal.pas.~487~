@@ -1,0 +1,357 @@
+unit UnitPrinicipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Data.DBXOracle, Data.FMTBcd,
+  Datasnap.Provider, Data.SqlExpr, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, xProcs, UnitGetNet, UnitCielo,
+  Datasnap.DBClient, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error,
+  FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
+  FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.Oracle, FireDAC.Phys.OracleDef,
+  FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  UnitSodexoAlimentaPass, Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TfrmPrincipal = class(TForm)
+    Panel2: TPanel;
+    Button1: TButton;
+    ComboBoxAdm: TComboBox;
+    Edit1: TEdit;
+    ButtonImportar: TButton;
+    Panel1: TPanel;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    DBGridBin: TDBGrid;
+    TabSheet2: TTabSheet;
+    OpenDialog1: TOpenDialog;
+    DBGridGetNet: TDBGrid;
+    DBGridCielo: TDBGrid;
+    ClientDataSetCielo: TClientDataSet;
+    DataSourceCielo: TDataSource;
+    ClientDataSetCieloSTATUS: TStringField;
+    ClientDataSetCieloTIPO_LANCAMENTO: TStringField;
+    ClientDataSetCieloDESCRICAO: TStringField;
+    ClientDataSetCieloBANCO: TStringField;
+    ClientDataSetCieloAGENCIA: TStringField;
+    ClientDataSetCieloCONTA: TStringField;
+    ClientDataSetCieloGRAVAME: TStringField;
+    ClientDataSetCieloNOME_INST_ORIG_NEG: TStringField;
+    ClientDataSetCieloCNPJ_INST_ORIG_NEG: TStringField;
+    ClientDataSetCieloESTABELECIMENTO: TStringField;
+    ClientDataSetCieloDATA_PAGAMENTO: TStringField;
+    ClientDataSetCieloDATA_LANCAMENTO: TStringField;
+    ClientDataSetCieloBANDEIRA: TStringField;
+    ClientDataSetCieloFORMA_PAGAMENTO: TStringField;
+    ClientDataSetCieloNUMERO_PARCELA: TStringField;
+    ClientDataSetCieloQUANTIDADE_PARCELA: TStringField;
+    ClientDataSetCieloNUMERO_CARTAO: TStringField;
+    ClientDataSetCieloCOD_TRANSACAO: TStringField;
+    ClientDataSetCieloCOD_AUTORIZACAO: TStringField;
+    ClientDataSetCieloNSU: TStringField;
+    ClientDataSetCieloVALOR_BRUTO: TStringField;
+    ClientDataSetCieloVALOR_LIQUIDO: TStringField;
+    ClientDataSetCieloVALOR_COBRADO: TStringField;
+    ClientDataSetCieloVALOR_PENDENTE: TStringField;
+    ClientDataSetCieloVALOR_TOTAL: TStringField;
+    ClientDataSetCieloRESUMO_OPERACAO: TStringField;
+    ClientDataSetCieloNUMERO_MAQUINA: TStringField;
+    ClientDataSetCieloPERIODO_CONSIDERADO: TStringField;
+    ClientDataSetCieloNUMERO_OPERACAO: TStringField;
+    ClientDataSetCieloTAXA_ANTECIPACAO: TStringField;
+    ClientDataSetCieloCOD_VENDA: TStringField;
+    SQLConnection: TSQLConnection;
+    EditCodLoja: TEdit;
+    FDConnectionRetaguarda: TFDConnection;
+    DBGridAdministradora: TDBGrid;
+    DataSourceAdministradora: TDataSource;
+    ClientDataSetAdministradora: TClientDataSet;
+    ClientDataSetAdministradoraCNPJ: TStringField;
+    ClientDataSetAdministradoraRAZAO_SOCIAL: TStringField;
+    ClientDataSetAdministradoraDATA_TRANSACAO: TSQLTimeStampField;
+    ClientDataSetAdministradoraDATA_PROCESSAMENTO: TSQLTimeStampField;
+    ClientDataSetAdministradoraREDE_CAPTURA: TStringField;
+    ClientDataSetAdministradoraDESCRICAO: TStringField;
+    ClientDataSetAdministradoraNUM_CARTAO: TStringField;
+    ClientDataSetAdministradoraNUM_AUTORIZACAO: TStringField;
+    ClientDataSetAdministradoraVALOR_BRUTO: TStringField;
+    DBGrid1: TDBGrid;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label1: TLabel;
+    Label4: TLabel;
+    DBEdit2: TDBEdit;
+    DBEdit4: TDBEdit;
+    ClientDataSetAdministradoraQTDREGARQ: TAggregateField;
+    DBEdit1: TDBEdit;
+    DBEdit3: TDBEdit;
+    Panel3: TPanel;
+    Memo1: TMemo;
+    ClientDataSetAdministradoraVAL_TOTAL: TAggregateField;
+    Panel5: TPanel;
+    Label5: TLabel;
+    ProgressBar1: TProgressBar;
+    Label6: TLabel;
+    ProgressBar2: TProgressBar;
+    Label7: TLabel;
+    ProgressBar3: TProgressBar;
+    procedure Button1Click(Sender: TObject);
+    procedure ButtonImportarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure DBGridRetaguardaDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure ClientDataSetAdministradoraAfterScroll(DataSet: TDataSet);
+    procedure ComboBoxAdmChange(Sender: TObject);
+  private
+    { Private declarations }
+    BAscDesc: Boolean;
+    GetNet: TGetNet;
+    Cielo: TCielo;
+    SodexoAlimentaPass: TSodexoAlimentaPass;
+    procedure fechaClient;
+    procedure buscaTitulos(aCli: TClientDataSet);
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+
+{$R *.dfm}
+
+uses UDmRetaguarda, UDmGetNet, UnitProgressoImportacao;
+
+
+procedure TfrmPrincipal.buscaTitulos(aCli: TClientDataSet);
+begin
+  try
+    ProgressBar2.Min:=0;
+    aCli.First;
+    with DmRetaguarda do
+    begin
+      ProgressBar2.Max:= aCli.RecordCount;
+      while not aCli.Eof do
+      begin
+        qryRetaguarda.Close;
+        qryRetaguarda.ParamByName('NUM_CGC').AsString:= aCli.FieldByName('CNPJ').AsString;
+        qryRetaguarda.ParamByName('DTA_EMISSAO').AsDate:= aCli.FieldByName('DATA_TRANSACAO').AsDateTime;
+        qryRetaguarda.ParamByName('COD_AUTORIZACAO_TEF').AsString := aCli.FieldByName('NUM_AUTORIZACAO').AsString;
+        qryRetaguarda.Open;
+
+        if not(qryRetaguarda.IsEmpty) then
+        begin
+          ClientDataSetCartao.Edit;
+          ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= qryRetaguarda.FieldByName('NUM_CGC').AsString;
+          ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= qryRetaguarda.FieldByName('DES_LOJA').AsString;
+          ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString:= qryRetaguarda.FieldByName('DES_PARCEIRO').AsString;
+          ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger:= qryRetaguarda.FieldByName('COD_BANDEIRA').AsInteger;
+          ClientDataSetCartao.FieldByName('DES_BANDEIRA').AsString:=  qryRetaguarda.FieldByName('DES_BANDEIRA').AsString;
+          ClientDataSetCartao.FieldByName('DTA_EMISSAO').AsDateTime:= qryRetaguarda.FieldByName('DTA_EMISSAO').AsDateTime;
+          ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime:= qryRetaguarda.FieldByName('DTA_ENTRADA').AsDateTime;
+          ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= qryRetaguarda.FieldByName('DTA_VENCIMENTO').AsDateTime;
+          ClientDataSetCartao.FieldByName('VAL_PARCELA').AsFloat:= qryRetaguarda.FieldByName('VAL_PARCELA').AsFloat;
+          ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda.FieldByName('VAL_LIQUIDO').AsFloat;
+          ClientDataSetCartao.FieldByName('COD_ADMINISTRADORA_TEF').AsInteger:= qryRetaguarda.FieldByName('COD_ADMINISTRADORA_TEF').AsInteger;
+          ClientDataSetCartao.FieldByName('NUM_BIN_TEF').AsString:= qryRetaguarda.FieldByName('NUM_BIN_TEF').AsString;
+          ClientDataSetCartao.FieldByName('NUM_NSU_HOST_TEF').AsString:= qryRetaguarda.FieldByName('NUM_NSU_HOST_TEF').AsString;
+          ClientDataSetCartao.FieldByName('COD_TRANSACAO_TEF').AsString:= qryRetaguarda.FieldByName('COD_TRANSACAO_TEF').AsString;
+          ClientDataSetCartao.FieldByName('COD_INSTITUICAO_TEF').AsString:= qryRetaguarda.FieldByName('COD_INSTITUICAO_TEF').AsString;
+          ClientDataSetCartao.FieldByName('COD_BANDEIRA_TEF').AsString:= qryRetaguarda.FieldByName('COD_BANDEIRA_TEF').AsString;
+          ClientDataSetCartao.FieldByName('NUM_NSU_SITEF').AsString:= qryRetaguarda.FieldByName('NUM_NSU_SITEF').AsString;
+          ClientDataSetCartao.FieldByName('COD_AUTORIZACAO_TEF').AsString:= qryRetaguarda.FieldByName('COD_AUTORIZACAO_TEF').AsString;
+          ClientDataSetCartao.FieldByName('COD_ESTABELECIMENTO_TEF').AsString:= qryRetaguarda.FieldByName('COD_ESTABELECIMENTO_TEF').AsString;
+          ClientDataSetCartao.FieldByName('VAL_TOTAL_NF').AsFloat:= qryRetaguarda.FieldByName('VAL_TOTAL_NF').AsFloat;
+          ClientDataSetCartao.FieldByName('NUM_PARCELA').AsInteger:= qryRetaguarda.FieldByName('NUM_PARCELA').AsInteger;
+          ClientDataSetCartao.FieldByName('QTD_PARCELA').AsInteger:= qryRetaguarda.FieldByName('QTD_PARCELA').AsInteger;
+          ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger:= qryRetaguarda.FieldByName('COD_PARCEIRO').AsInteger;
+          ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger:= qryRetaguarda.FieldByName('COD_CHAVE').AsInteger;
+          ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
+          ClientDataSetCartao.Append;
+        end;
+
+        ProgressBar2.Position:=aCli.RecNo;
+        aCli.Next;
+      end;
+    end;
+  finally
+  end;
+end;
+
+procedure TfrmPrincipal.Button1Click(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+  begin
+    Edit1.Text:= ExtractFileName(OpenDialog1.FileName);
+  end;
+
+  ButtonImportar.Enabled:= iif(Edit1.Text <>'', True, False);
+
+end;
+
+procedure TfrmPrincipal.ButtonImportarClick(Sender: TObject);
+begin
+
+  if ComboBoxAdm.ItemIndex = -1 then
+  begin
+    MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
+    exit;
+  end
+  else
+
+
+  try
+    case ComboBoxAdm.ItemIndex of
+      0:
+      begin
+        with DmRetaguarda, DmGetNet  do
+        begin
+          dmGetNet:= TDmGetNet.Create(Self);
+          DBGridGetNet.BringToFront;
+          fechaClient;
+          ClientDataSetGetNet.Open;
+          ClientDataSetGetNet.EmptyDataSet;
+          GetNet.importaArquivo(ClientDataSetGetNet,OpenDialog1.FileName,ProgressBar1);
+          GetNet.BuscaTitulos(ClientDataSetGetNet,ProgressBar2);
+          ClientDataSetCartao.Open;
+          alimentaClientDataSetAdmBand;
+          GetNet.GeraNumBordero(Memo1);
+
+        end;
+      end;
+
+      1:
+      begin
+      end;
+
+      2:
+      begin
+        DBGridCielo.BringToFront;
+        fechaClient;
+        ClientDataSetCielo.Open;
+        ClientDataSetCielo.EmptyDataSet;
+        Cielo.importaArquivo(ClientDataSetCielo,  OpenDialog1.FileName);
+      end;
+      4:
+      begin
+        with DmRetaguarda do
+        begin
+          DBGridAdministradora.BringToFront;
+          fechaClient;
+          ClientDataSetAdministradora.Open;
+          ClientDataSetAdministradora.EmptyDataSet;
+          SodexoAlimentaPass.importaArquivo(ClientDataSetAdministradora,OpenDialog1.FileName);
+          qryBordero.Close;
+          qryBordero.Open;
+          buscaTitulos(ClientDataSetAdministradora);
+          ClientDataSetCartao.Open;
+          qryAtualizaNumBordero.ExecSQL;
+        end;
+
+      end;
+    end;
+
+  finally
+
+  end;
+
+end;
+
+
+procedure TfrmPrincipal.ClientDataSetAdministradoraAfterScroll(DataSet: TDataSet);
+begin
+ { with DmRetaguarda do
+  begin
+    if not qryRetaguarda.IsEmpty  then
+      qryRetaguarda.recno:= ClientDataSetAdministradora.RecNo;
+  end;  }
+end;
+
+procedure TfrmPrincipal.ComboBoxAdmChange(Sender: TObject);
+begin
+  if ComboBoxAdm.Items[ComboBoxAdm.ItemIndex] = 'GetNet' then
+     GetNet := TGetNet.Create;
+end;
+
+procedure TfrmPrincipal.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+ if not (gdSelected in State) then
+  begin
+    if Odd((Sender as TDBGrid).DataSource.DataSet.RecNo) then
+      (Sender as TDBGrid).Canvas.Brush.Color:= clWhite
+    else
+      (Sender as TDBGrid).Canvas.Brush.Color:= $00F1F2F3; // leve cinza
+
+    // Aplicando prto para a cor da fonte
+    (Sender as TDBGrid).Canvas.Font.Color:= clBlack;
+
+    (Sender as TDBGrid).Canvas.FillRect(Rect);
+    (Sender as TDBGrid).Canvas.TextOut(Rect.Left + 2, Rect.Top,Column.Field.DisplayText);
+
+  end;
+end;
+
+procedure TfrmPrincipal.DBGridRetaguardaDrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  if not (gdSelected in State) then
+  begin
+    if Odd((Sender as TDBGrid).DataSource.DataSet.RecNo) then
+      (Sender as TDBGrid).Canvas.Brush.Color:= clWhite
+    else
+      (Sender as TDBGrid).Canvas.Brush.Color:= $00F1F2F3; // leve cinza
+
+    // Aplicando prto para a cor da fonte
+    (Sender as TDBGrid).Canvas.Font.Color:= clBlack;
+
+    (Sender as TDBGrid).Canvas.FillRect(Rect);
+    (Sender as TDBGrid).Canvas.TextOut(Rect.Left + 2, Rect.Top,Column.Field.DisplayText);
+
+  end;
+end;
+
+
+
+procedure TfrmPrincipal.fechaClient;
+begin
+ with DmGetNet, DmRetaguarda do
+ begin
+
+   ClientDataSetCielo.Close;
+   ClientDataSetGetNet.Close;
+   ClientDataSetCartao.Close;
+   qryRetaguarda.Close;
+
+   ClientDataSetCielo.EmptyDataSet;
+   ClientDataSetGetNet.EmptyDataSet;
+   ClientDataSetCartao.EmptyDataSet;
+
+ end;
+
+ ClientDataSetAdministradora.Close;
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+ FDConnectionRetaguarda.Connected:= True;
+ DmRetaguarda:= TDmRetaguarda.Create(Self);
+ ClientDataSetAdministradora.CreateDataSet;
+end;
+
+procedure TfrmPrincipal.FormDestroy(Sender: TObject);
+begin
+  if GetNet<>nil then
+    GetNet.DisposeOf;
+  if Cielo<>nil then
+      Cielo.DisposeOf;
+end;
+
+end.

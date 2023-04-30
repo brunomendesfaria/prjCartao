@@ -1,0 +1,27 @@
+unit UDmCartaoSodexo;
+
+interface
+
+uses
+  System.SysUtils, System.Classes;
+
+type
+  TDmCartaoSodexo = class(TDataModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DmCartaoSodexo: TDmCartaoSodexo;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses UDmConexao;
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{02159EB0-3FCE-4B21-BA3D-ADD04C90117D}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="PrjCartao.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="PrjCartao">
+        <MSBuild Projects="PrjCartao.dproj"/>
+    </Target>
+    <Target Name="PrjCartao:Clean">
+        <MSBuild Projects="PrjCartao.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PrjCartao:Make">
+        <MSBuild Projects="PrjCartao.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="PrjCartao"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="PrjCartao:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="PrjCartao:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

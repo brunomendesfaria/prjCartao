@@ -1,0 +1,132 @@
+object DmGetNet: TDmGetNet
+  OldCreateOrder = False
+  Height = 150
+  Width = 215
+  object qryCartao: TFDQuery
+    Connection = DmConexao.FDConnection
+    Left = 16
+    Top = 8
+  end
+  object ClientDataSetGetNet: TClientDataSet
+    PersistDataPacket.Data = {
+      4F0200009619E0BD0100000018000000120000000000030000004F0214434F44
+      49474F5F43454E5452414C495A41444F52010049000000010005574944544802
+      0002000F0006434F4449474F0100490000000100055749445448020002000F00
+      0A56454E43494D454E544F0100490000000100055749445448020002000F0013
+      56454E43494D454E544F5F4F524947494E414C01004900000001000557494454
+      48020002000F000750524F4455544F0100490000000100055749445448020002
+      0019000A4C414E43414D454E544F010049000000010005574944544802000200
+      19000B504C414E4F5F56454E4441010049000000010005574944544802000200
+      19000750415243454C4101004900000001000557494454480200020003000D54
+      4F54414C5F50415243454C410100490000000100055749445448020002000300
+      0643415254414F01004900000001000557494454480200020019000B4155544F
+      52495A4143414F0100490000000100055749445448020002000F00094E554D45
+      524F5F43560100490000000100055749445448020002000F00085445524D494E
+      414C0100490000000100055749445448020002000F000A444154415F56454E44
+      410100490000000100055749445448020002000F000E56414C4F525F4F524947
+      494E414C0100490000000100055749445448020002000F000B56414C4F525F42
+      5255544F0100490000000100055749445448020002000F0008444553434F4E54
+      4F0100490000000100055749445448020002000F00074C49515549444F010049
+      0000000100055749445448020002000F000000}
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 80
+    Top = 78
+    object ClientDataSetGetNetCODIGO_CENTRALIZADOR: TStringField
+      DisplayLabel = 'Cod. Centr.'
+      FieldName = 'CODIGO_CENTRALIZADOR'
+      Size = 10
+    end
+    object ClientDataSetGetNetCODIGO: TStringField
+      DisplayLabel = 'Cod.'
+      FieldName = 'CODIGO'
+      Size = 10
+    end
+    object ClientDataSetGetNetVENCIMENTO: TStringField
+      DisplayLabel = 'Vencimento'
+      FieldName = 'VENCIMENTO'
+      Size = 10
+    end
+    object ClientDataSetGetNetVENCIMENTO_ORIGINAL: TStringField
+      DisplayLabel = 'Venc. Original'
+      FieldName = 'VENCIMENTO_ORIGINAL'
+      Size = 15
+    end
+    object ClientDataSetGetNetPRODUTO: TStringField
+      DisplayLabel = 'Produto'
+      FieldName = 'PRODUTO'
+      Size = 25
+    end
+    object ClientDataSetGetNetLANCAMENTO: TStringField
+      DisplayLabel = 'Lan'#231'amento'
+      FieldName = 'LANCAMENTO'
+      Size = 25
+    end
+    object ClientDataSetGetNetPLANO_VENDA: TStringField
+      DisplayLabel = 'Plano Venda'
+      FieldName = 'PLANO_VENDA'
+      Size = 25
+    end
+    object ClientDataSetGetNetPARCELA: TStringField
+      DisplayLabel = 'Parcela'
+      FieldName = 'PARCELA'
+      Size = 3
+    end
+    object ClientDataSetGetNetTOTAL_PARCELA: TStringField
+      DisplayLabel = 'Tot. Parc.'
+      FieldName = 'TOTAL_PARCELA'
+      Size = 3
+    end
+    object ClientDataSetGetNetCARTAO: TStringField
+      DisplayLabel = 'Cart'#227'o'
+      FieldName = 'CARTAO'
+      Size = 25
+    end
+    object ClientDataSetGetNetAUTORIZACAO: TStringField
+      DisplayLabel = 'Autoriza'#231#227'o'
+      FieldName = 'AUTORIZACAO'
+      Size = 15
+    end
+    object ClientDataSetGetNetNUMERO_CV: TStringField
+      DisplayLabel = 'N'#250'm. CV'
+      FieldName = 'NUMERO_CV'
+      Size = 15
+    end
+    object ClientDataSetGetNetTERMINAL: TStringField
+      DisplayLabel = 'Terminal'
+      FieldName = 'TERMINAL'
+      Size = 15
+    end
+    object ClientDataSetGetNetDATA_VENDA: TStringField
+      DisplayLabel = 'Data Venda'
+      FieldName = 'DATA_VENDA'
+      Size = 15
+    end
+    object ClientDataSetGetNetVALOR_ORIGINAL: TStringField
+      DisplayLabel = 'Valor Original '
+      FieldName = 'VALOR_ORIGINAL'
+      Size = 15
+    end
+    object ClientDataSetGetNetVALOR_BRUTO: TStringField
+      DisplayLabel = 'Valor Bruto'
+      FieldName = 'VALOR_BRUTO'
+      Size = 15
+    end
+    object ClientDataSetGetNetDESCONTO: TStringField
+      DisplayLabel = 'Desconto'
+      FieldName = 'DESCONTO'
+      Size = 15
+    end
+    object ClientDataSetGetNetLIQUIDO: TStringField
+      DisplayLabel = 'L'#237'quido'
+      FieldName = 'LIQUIDO'
+      Size = 15
+    end
+  end
+  object DataSourceGetNet: TDataSource
+    DataSet = ClientDataSetGetNet
+    Left = 85
+    Top = 30
+  end
+end

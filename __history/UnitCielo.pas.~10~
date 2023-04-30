@@ -1,0 +1,75 @@
+unit UnitCielo;
+
+interface
+
+uses
+  System.Classes,DBClient, Vcl.Dialogs, System.SysUtils;
+
+type TCielo = class
+  procedure importaArquivo(aCli: TClientDataSet; arquivo: TFileName);
+end;
+
+implementation
+
+{ TCielo }
+
+procedure TCielo.importaArquivo(aCli: TClientDataSet; arquivo: TFileName);
+var  gravar, ler: TStrings;
+            i: integer;
+begin
+  gravar:= TStringList.Create;
+  ler:=    TStringList.Create;
+
+  ler.LoadFromFile(arquivo);
+
+  gravar.Delimiter:=';';
+  gravar.StrictDelimiter:= True;
+
+  for I := 0 to Pred(ler.Count) do
+  begin
+
+    if i > 3 then
+    begin
+      gravar.DelimitedText:= ler.Strings[i];
+
+
+      aCli.Append;
+      aCli.FieldByName('STATUS').AsString:= gravar.Strings[0];
+      aCli.FieldByName('TIPO_LANCAMENTO').AsString:= gravar.Strings[1];
+      aCli.FieldByName('DESCRICAO').AsString:= gravar.Strings[2];
+      aCli.FieldByName('BANCO').AsString:= gravar.Strings[3];
+      aCli.FieldByName('AGENCIA').AsString:= gravar.Strings[4];
+      aCli.FieldByName('CONTA').AsString:= gravar.Strings[5];
+      aCli.FieldByName('GRAVAME').AsString:= gravar.Strings[6];
+      aCli.FieldByName('CNPJ').AsString:= gravar.Strings[7];
+      aCli.FieldByName('CNPJ_INST_ORIG_NEG').AsString:= gravar.Strings[8];
+      aCli.FieldByName('NOME_INST_ORIG_NEG').AsString:= gravar.Strings[9];
+      aCli.FieldByName('ESTABELECIMENTO').AsString:= gravar.Strings[10];
+      aCli.FieldByName('DATA_PAGAMENTO').AsString:= gravar.Strings[11];
+      aCli.FieldByName('DATA_LANCAMENTO').AsString:= gravar.Strings[12];
+      aCli.FieldByName('BANDEIRA').AsString:= gravar.Strings[13];
+      aCli.FieldByName('FORMA_PAGAMENTO').AsString:= gravar.Strings[14];
+      aCli.FieldByName('NUMERO_PARCELA').AsString:= gravar.Strings[15];
+      aCli.FieldByName('QUANTIDADE_PARCELA').AsString:= gravar.Strings[16];
+      aCli.FieldByName('COD_TRANSACAO').AsString:= gravar.Strings[17];
+      aCli.FieldByName('COD_AUTORIZACAO').AsString:= gravar.Strings[18];
+      aCli.FieldByName('NSU').AsString:= gravar.Strings[19];
+      aCli.FieldByName('VALOR_BRUTO').AsString:= gravar.Strings[20];
+      aCli.FieldByName('VALOR_LIQUIDO').AsString:= gravar.Strings[21];
+      aCli.FieldByName('VALOR_COBRADO').AsString:= gravar.Strings[22];
+      aCli.FieldByName('VALOR_PENDENTE').AsString:= gravar.Strings[23];
+      aCli.FieldByName('VALOR_TOTAL').AsString:= gravar.Strings[24];
+      aCli.FieldByName('RESUMO_OPERACAO').AsString:= gravar.Strings[25];
+      aCli.FieldByName('NUMERO_MAQUINA').AsString:= gravar.Strings[26];
+      aCli.FieldByName('PERIODO_CONSIDERADO').AsString:= gravar.Strings[27];
+      aCli.FieldByName('NUMERO_OPERACAO').AsString:= gravar.Strings[28];
+      aCli.FieldByName('TAXA_ANTECIPACAO').AsString:= gravar.Strings[29];
+      aCli.Post;
+    end;
+  end;
+
+
+
+end;
+
+end.
