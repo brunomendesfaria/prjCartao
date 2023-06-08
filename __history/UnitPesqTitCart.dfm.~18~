@@ -1,0 +1,508 @@
+object FormPesTitCart: TFormPesTitCart
+  Left = 0
+  Top = 0
+  Caption = 'Pesquisa T'#237'tulo de Cart'#227'o'
+  ClientHeight = 337
+  ClientWidth = 979
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 979
+    Height = 41
+    Align = alTop
+    TabOrder = 0
+    object DateTimePicker: TDateTimePicker
+      Left = 8
+      Top = 11
+      Width = 91
+      Height = 21
+      Date = 45038.000000000000000000
+      Time = 0.402209780091652600
+      TabOrder = 0
+    end
+    object Edit1: TEdit
+      Left = 105
+      Top = 11
+      Width = 121
+      Height = 21
+      TabOrder = 1
+      Text = 'Valor R$'
+    end
+    object btnPesquisar: TButton
+      Left = 232
+      Top = 9
+      Width = 75
+      Height = 25
+      Caption = 'Pesquisar'
+      TabOrder = 2
+      OnClick = btnPesquisarClick
+    end
+    object btnAdicionar: TButton
+      Left = 232
+      Top = 9
+      Width = 75
+      Height = 25
+      Caption = 'Adicionar'
+      TabOrder = 3
+      Visible = False
+      OnClick = btnAdicionarClick
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 41
+    Width = 979
+    Height = 296
+    Align = alClient
+    TabOrder = 1
+    object DBGrid1: TDBGrid
+      Left = 1
+      Top = 1
+      Width = 977
+      Height = 294
+      Align = alClient
+      DataSource = DataSource
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'SELECTED'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_PARCEIRO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NUM_CGC_CPF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DES_PARCEIRO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DTA_EMISSAO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_BANCO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NUM_DOCTO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DTA_VENCIMENTO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VAL_PARCELA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DTA_ENTRADA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NUM_PARCELA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'QTD_PARCELA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VAL_TOTAL_NF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NUM_BORDERO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NUM_PDV'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_LOJA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NUM_CUPOM_FISCAL'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_CHAVE'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DES_BANDEIRA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DES_REDE_TEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_BIN'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_BANDEIRA_TEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_AUTORIZACAO_TEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NUM_BIN_TEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NUM_NSU_HOST_TEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NUM_NSU_SITEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_INSTITUICAO_TEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_ESTABELECIMENTO_TEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_TRANSACAO_TEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'COD_ADMINISTRADORA_TEF'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DTA_EMISSAO_PGTO'
+          Visible = True
+        end>
+    end
+  end
+  object FDQuery: TFDQuery
+    Connection = DmConexao.FDConnection
+    SQL.Strings = (
+      'SELECT  '
+      'TAB_FLUXO.COD_PARCEIRO, '
+      'TAB_FLUXO.NUM_CGC_CPF, '
+      'TAB_FLUXO.DES_PARCEIRO, '
+      'TAB_FLUXO.DTA_EMISSAO, '
+      'TAB_FLUXO.COD_BANCO, '
+      'TAB_FLUXO.NUM_DOCTO, '
+      'TAB_FLUXO.DTA_VENCIMENTO, '
+      'TAB_FLUXO.VAL_PARCELA, '
+      'TAB_FLUXO.DTA_ENTRADA, '
+      'TAB_FLUXO.NUM_PARCELA, '
+      'TAB_FLUXO.QTD_PARCELA, '
+      'TAB_FLUXO.VAL_TOTAL_NF, '
+      'TAB_FLUXO.NUM_BORDERO, '
+      'TAB_FLUXO.NUM_PDV, '
+      'TAB_FLUXO.COD_LOJA, '
+      'TAB_FLUXO.NUM_CUPOM_FISCAL, '
+      'TAB_FLUXO.COD_CHAVE, '
+      'TAB_FLUXO.DES_BANDEIRA, '
+      'TAB_FLUXO.DES_REDE_TEF, '
+      'TAB_FLUXO.COD_BIN, '
+      'COD_BANDEIRA_TEF, '
+      'COD_AUTORIZACAO_TEF, '
+      'NUM_BIN_TEF, '
+      'NUM_NSU_HOST_TEF, '
+      'NUM_NSU_SITEF, '
+      'COD_INSTITUICAO_TEF, '
+      'COD_ESTABELECIMENTO_TEF, '
+      'COD_TRANSACAO_TEF, '
+      'COD_ADMINISTRADORA_TEF,  '
+      'TAB_FLUXO.DTA_EMISSAO_PGTO'
+      'FROM '
+      'TAB_FLUXO '
+      'LEFT JOIN TAB_PLANO_CONTA PLANCONTA ON '
+      '  TAB_FLUXO.COD_CONTA = PLANCONTA.COD_CONTA '
+      'LEFT JOIN TAB_ENTIDADE ON'
+      ' TAB_FLUXO.COD_ENTIDADE = TAB_ENTIDADE.COD_ENTIDADE'
+      'LEFT JOIN TAB_COMPRADOR ON'
+      ' TAB_FLUXO.COD_COMPRADOR = TAB_COMPRADOR.COD_COMPRADOR'
+      'LEFT JOIN TAB_VENDEDOR ON'
+      ' (TAB_FLUXO.COD_USUARIO_VDA = TAB_VENDEDOR.COD_VENDEDOR '
+      'AND '
+      '  TAB_FLUXO.COD_LOJA = TAB_VENDEDOR.COD_LOJA)'
+      'LEFT JOIN TAB_ENTIDADE TAB_ENTIDADE_PDV ON '
+      ' TAB_ENTIDADE_PDV.COD_ENTIDADE = TAB_FLUXO.COD_ENTIDADE_PDV'
+      'LEFT JOIN TAB_CATEGORIA'
+      'ON TAB_CATEGORIA.COD_CATEGORIA = TAB_FLUXO.COD_CATEGORIA '
+      'LEFT JOIN TAB_SUBCATEGORIA '
+      'ON (TAB_SUBCATEGORIA.COD_CATEGORIA = TAB_FLUXO.COD_CATEGORIA   '
+      'AND '
+      'TAB_SUBCATEGORIA.COD_SUBCATEGORIA = TAB_FLUXO.COD_SUBCATEGORIA)'
+      'LEFT JOIN TAB_CENTRO_RESULT ON '
+      
+        ' TAB_FLUXO.COD_CENTRO_RESULT = TAB_CENTRO_RESULT.COD_CENTRO_RESU' +
+        'LT'
+      'LEFT JOIN TAB_FLUXO_BOLETO ON                      '
+      ' TAB_FLUXO.COD_CHAVE = TAB_FLUXO_BOLETO.COD_CHAVE   '
+      'WHERE '
+      'TAB_FLUXO.COD_LOJA = :PAR_LOJA'
+      'AND '
+      'TAB_FLUXO.TIPO_CONTA =1'
+      ' AND TAB_FLUXO.TIPO_PARCEIRO = 4'
+      ' AND TAB_FLUXO.VAL_PARCELA = :PAR_VALOR'
+      ''
+      ' AND TAB_FLUXO.DTA_EMISSAO = :PAR_DATA'
+      ' AND TAB_FLUXO.FLG_QUITADO = '#39'N'#39)
+    Left = 472
+    ParamData = <
+      item
+        Name = 'PAR_LOJA'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'PAR_VALOR'
+        DataType = ftFloat
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'PAR_DATA'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = Null
+      end>
+    object FDQueryCOD_PARCEIRO: TBCDField
+      FieldName = 'COD_PARCEIRO'
+      Origin = 'COD_PARCEIRO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryNUM_CGC_CPF: TStringField
+      FieldName = 'NUM_CGC_CPF'
+      Origin = 'NUM_CGC_CPF'
+      Size = 19
+    end
+    object FDQueryDES_PARCEIRO: TStringField
+      FieldName = 'DES_PARCEIRO'
+      Origin = 'DES_PARCEIRO'
+      Size = 50
+    end
+    object FDQueryDTA_EMISSAO: TDateTimeField
+      FieldName = 'DTA_EMISSAO'
+      Origin = 'DTA_EMISSAO'
+    end
+    object FDQueryCOD_BANCO: TBCDField
+      FieldName = 'COD_BANCO'
+      Origin = 'COD_BANCO'
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryNUM_DOCTO: TStringField
+      FieldName = 'NUM_DOCTO'
+      Origin = 'NUM_DOCTO'
+      Size = 25
+    end
+    object FDQueryDTA_VENCIMENTO: TDateTimeField
+      FieldName = 'DTA_VENCIMENTO'
+      Origin = 'DTA_VENCIMENTO'
+    end
+    object FDQueryVAL_PARCELA: TFloatField
+      FieldName = 'VAL_PARCELA'
+      Origin = 'VAL_PARCELA'
+      Required = True
+    end
+    object FDQueryDTA_ENTRADA: TDateTimeField
+      FieldName = 'DTA_ENTRADA'
+      Origin = 'DTA_ENTRADA'
+    end
+    object FDQueryNUM_PARCELA: TBCDField
+      FieldName = 'NUM_PARCELA'
+      Origin = 'NUM_PARCELA'
+      Required = True
+      Precision = 5
+      Size = 0
+    end
+    object FDQueryQTD_PARCELA: TBCDField
+      FieldName = 'QTD_PARCELA'
+      Origin = 'QTD_PARCELA'
+      Required = True
+      Precision = 5
+      Size = 0
+    end
+    object FDQueryVAL_TOTAL_NF: TFloatField
+      FieldName = 'VAL_TOTAL_NF'
+      Origin = 'VAL_TOTAL_NF'
+      Required = True
+    end
+    object FDQueryNUM_BORDERO: TBCDField
+      FieldName = 'NUM_BORDERO'
+      Origin = 'NUM_BORDERO'
+      Required = True
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryNUM_PDV: TBCDField
+      FieldName = 'NUM_PDV'
+      Origin = 'NUM_PDV'
+      Required = True
+      Precision = 5
+      Size = 0
+    end
+    object FDQueryCOD_LOJA: TBCDField
+      FieldName = 'COD_LOJA'
+      Origin = 'COD_LOJA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryNUM_CUPOM_FISCAL: TBCDField
+      FieldName = 'NUM_CUPOM_FISCAL'
+      Origin = 'NUM_CUPOM_FISCAL'
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryCOD_CHAVE: TBCDField
+      FieldName = 'COD_CHAVE'
+      Origin = 'COD_CHAVE'
+      Required = True
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryDES_BANDEIRA: TStringField
+      FieldName = 'DES_BANDEIRA'
+      Origin = 'DES_BANDEIRA'
+      Size = 25
+    end
+    object FDQueryDES_REDE_TEF: TStringField
+      FieldName = 'DES_REDE_TEF'
+      Origin = 'DES_REDE_TEF'
+      Size = 25
+    end
+    object FDQueryCOD_BIN: TBCDField
+      FieldName = 'COD_BIN'
+      Origin = 'COD_BIN'
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryCOD_BANDEIRA_TEF: TBCDField
+      FieldName = 'COD_BANDEIRA_TEF'
+      Origin = 'COD_BANDEIRA_TEF'
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryCOD_AUTORIZACAO_TEF: TBCDField
+      FieldName = 'COD_AUTORIZACAO_TEF'
+      Origin = 'COD_AUTORIZACAO_TEF'
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryNUM_BIN_TEF: TBCDField
+      FieldName = 'NUM_BIN_TEF'
+      Origin = 'NUM_BIN_TEF'
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryNUM_NSU_HOST_TEF: TStringField
+      FieldName = 'NUM_NSU_HOST_TEF'
+      Origin = 'NUM_NSU_HOST_TEF'
+      Size = 15
+    end
+    object FDQueryNUM_NSU_SITEF: TStringField
+      FieldName = 'NUM_NSU_SITEF'
+      Origin = 'NUM_NSU_SITEF'
+      Size = 15
+    end
+    object FDQueryCOD_INSTITUICAO_TEF: TStringField
+      FieldName = 'COD_INSTITUICAO_TEF'
+      Origin = 'COD_INSTITUICAO_TEF'
+      Size = 5
+    end
+    object FDQueryCOD_ESTABELECIMENTO_TEF: TStringField
+      FieldName = 'COD_ESTABELECIMENTO_TEF'
+      Origin = 'COD_ESTABELECIMENTO_TEF'
+      Size = 50
+    end
+    object FDQueryCOD_TRANSACAO_TEF: TBCDField
+      FieldName = 'COD_TRANSACAO_TEF'
+      Origin = 'COD_TRANSACAO_TEF'
+      Precision = 10
+      Size = 0
+    end
+    object FDQueryCOD_ADMINISTRADORA_TEF: TStringField
+      FieldName = 'COD_ADMINISTRADORA_TEF'
+      Origin = 'COD_ADMINISTRADORA_TEF'
+    end
+    object FDQueryDTA_EMISSAO_PGTO: TDateTimeField
+      FieldName = 'DTA_EMISSAO_PGTO'
+      Origin = 'DTA_EMISSAO_PGTO'
+    end
+    object FDQuerySELECTED: TBooleanField
+      FieldName = 'SELECTED'
+    end
+  end
+  object DataSource: TDataSource
+    DataSet = FDQuery
+    Left = 512
+    Top = 1
+  end
+  object FDQueryRegistro: TFDQuery
+    Left = 640
+    Top = 201
+  end
+end

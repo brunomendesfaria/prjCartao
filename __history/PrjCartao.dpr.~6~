@@ -1,0 +1,18 @@
+program PrjCartao;
+
+uses
+  Vcl.Forms,
+  UnitPrinicipal in 'UnitPrinicipal.pas' {Form1},
+  UnitGetNet in 'UnitGetNet.pas',
+  XPROCS in 'XPROCS.PAS',
+  UnitCielo in 'UnitCielo.pas',
+  UnitSodexoAlimentaPass in 'UnitSodexoAlimentaPass.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

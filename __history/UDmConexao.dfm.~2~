@@ -1,0 +1,15 @@
+object DmConexao: TDmConexao
+  OldCreateOrder = False
+  Height = 150
+  Width = 215
+  object FDConnection: TFDConnection
+    Params.Strings = (
+      'User_Name=intersolid'
+      'Password=1nt3rs0l1d'
+      'Database=pianta'
+      'DriverID=Ora')
+    LoginPrompt = False
+    Left = 56
+    Top = 48
+  end
+end
