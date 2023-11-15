@@ -1,0 +1,39 @@
+object DMTicket: TDMTicket
+  OldCreateOrder = False
+  Height = 547
+  Width = 525
+  object DSTicket: TDataSource
+    DataSet = CliTicket
+    Left = 112
+    Top = 288
+  end
+  object CliTicket: TClientDataSet
+    Aggregates = <>
+    AggregatesActive = True
+    Params = <>
+    Left = 248
+    Top = 256
+    object CliTicketDtaTransacao: TDateField
+      FieldName = 'DtaTransacao'
+    end
+    object CliTicketProduto: TStringField
+      FieldName = 'Produto'
+      Size = 25
+    end
+    object CliTicketValor: TFloatField
+      FieldName = 'Valor'
+    end
+    object CliTicketqtdReg: TAggregateField
+      FieldName = 'qtdReg'
+      Active = True
+      DisplayName = ''
+      Expression = 'Count(*)'
+    end
+    object CliTicketvalorTotal: TAggregateField
+      FieldName = 'valorTotal'
+      Active = True
+      DisplayName = ''
+      Expression = 'Sum(Valor)'
+    end
+  end
+end

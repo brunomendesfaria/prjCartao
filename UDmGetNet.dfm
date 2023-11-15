@@ -1,8 +1,8 @@
 object DmGetNet: TDmGetNet
-  OldCreateOrder = False
+  OldCreateOrder = True
   OnCreate = DataModuleCreate
-  Height = 150
-  Width = 215
+  Height = 289
+  Width = 292
   object qryCartao: TFDQuery
     Connection = DmConexao.FDConnection
     Left = 16

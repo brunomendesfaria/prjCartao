@@ -8,6 +8,7 @@ uses
 
 type TGetNet = class
   procedure importaArquivo(aCli: TClientDataSet; arquivo: TFileName; progress: TProgressBar);
+  procedure importaArquivoVenda(aCli: TClientDataSet; arquivo: TFileName; progress: TProgressBar);
   function formatValor(val: String):String;
   function verificaCaracter(Origem,Caractere: String):boolean;
   procedure BuscaTitulos(aCli: TClientDataSet;ProgressBar: TProgressBar);
@@ -89,36 +90,73 @@ begin
 
           if not qryRetaguarda2.IsEmpty then
           begin
+
             if qryRetaguarda2.RecordCount > 1 then
             begin
-              ClientDataSetCartao.Append;
-              ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= '0';
-              ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= '0';
-              ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString:= 'Selecionar Registro tem mais de 1 !';
-              ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger:= 0;
-              ClientDataSetCartao.FieldByName('DES_BANDEIRA').AsString:=  '0';
-              ClientDataSetCartao.FieldByName('DTA_EMISSAO').AsDateTime:= Now;
-              ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime:= Now;
-              ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= Now;
-              ClientDataSetCartao.FieldByName('VAL_PARCELA').AsFloat:= 0;
-              ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= 0;
-              ClientDataSetCartao.FieldByName('COD_ADMINISTRADORA_TEF').AsString:= '0';
-              ClientDataSetCartao.FieldByName('NUM_BIN_TEF').AsString:= '0';
-              ClientDataSetCartao.FieldByName('NUM_NSU_HOST_TEF').AsString:= '0';
-              ClientDataSetCartao.FieldByName('COD_TRANSACAO_TEF').AsString:='0';
-              ClientDataSetCartao.FieldByName('COD_INSTITUICAO_TEF').AsString:= '0';
-              ClientDataSetCartao.FieldByName('COD_BANDEIRA_TEF').AsString:= '0';
-              ClientDataSetCartao.FieldByName('NUM_NSU_SITEF').AsString:= '0';
-              ClientDataSetCartao.FieldByName('COD_AUTORIZACAO_TEF').AsString:= '0';
-              ClientDataSetCartao.FieldByName('COD_ESTABELECIMENTO_TEF').AsString:= '0';
-              ClientDataSetCartao.FieldByName('VAL_TOTAL_NF').AsFloat:= 0;
-              ClientDataSetCartao.FieldByName('NUM_PARCELA').AsInteger:= 0;
-              ClientDataSetCartao.FieldByName('QTD_PARCELA').AsInteger:= 0;
-              ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger:= 0;
-              ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger:= 0;
-              ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  0;
-              ClientDataSetCartao.FieldByName('COD_INTERNO').AsInteger:=  aCli.RecNo;
-              ClientDataSetCartao.FieldByName('FLG_ENCONTRADO').AsBoolean:=  False;
+
+              if (qryRetaguarda2.Locate('COD_PARCEIRO;COD_BANDEIRA;',
+                VarArrayOf([ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger,
+               ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger]),[])) then
+               begin
+                ClientDataSetCartao.Append;
+                ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= qryRetaguarda2.FieldByName('NUM_CGC').AsString;
+                ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= qryRetaguarda2.FieldByName('DES_LOJA').AsString;
+                ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString:= qryRetaguarda2.FieldByName('DES_PARCEIRO').AsString;
+                ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger:= qryRetaguarda2.FieldByName('COD_BANDEIRA').AsInteger;
+                ClientDataSetCartao.FieldByName('DES_BANDEIRA').AsString:=  qryRetaguarda2.FieldByName('DES_BANDEIRA').AsString;
+                ClientDataSetCartao.FieldByName('DTA_EMISSAO').AsDateTime:= qryRetaguarda2.FieldByName('DTA_EMISSAO').AsDateTime;
+                ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime:= qryRetaguarda2.FieldByName('DTA_ENTRADA').AsDateTime;
+                ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= qryRetaguarda2.FieldByName('DTA_VENCIMENTO').AsDateTime;
+                ClientDataSetCartao.FieldByName('VAL_PARCELA').AsFloat:= qryRetaguarda2.FieldByName('VAL_PARCELA').AsFloat;
+                ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda2.FieldByName('VAL_LIQUIDO').AsFloat;
+                ClientDataSetCartao.FieldByName('COD_ADMINISTRADORA_TEF').AsString:= qryRetaguarda2.FieldByName('COD_ADMINISTRADORA_TEF').AsString;
+                ClientDataSetCartao.FieldByName('NUM_BIN_TEF').AsString:= qryRetaguarda2.FieldByName('NUM_BIN_TEF').AsString;
+                ClientDataSetCartao.FieldByName('NUM_NSU_HOST_TEF').AsString:= qryRetaguarda2.FieldByName('NUM_NSU_HOST_TEF').AsString;
+                ClientDataSetCartao.FieldByName('COD_TRANSACAO_TEF').AsString:= qryRetaguarda2.FieldByName('COD_TRANSACAO_TEF').AsString;
+                ClientDataSetCartao.FieldByName('COD_INSTITUICAO_TEF').AsString:= qryRetaguarda2.FieldByName('COD_INSTITUICAO_TEF').AsString;
+                ClientDataSetCartao.FieldByName('COD_BANDEIRA_TEF').AsString:= qryRetaguarda2.FieldByName('COD_BANDEIRA_TEF').AsString;
+                ClientDataSetCartao.FieldByName('NUM_NSU_SITEF').AsString:= qryRetaguarda2.FieldByName('NUM_NSU_SITEF').AsString;
+                ClientDataSetCartao.FieldByName('COD_AUTORIZACAO_TEF').AsString:= qryRetaguarda2.FieldByName('COD_AUTORIZACAO_TEF').AsString;
+                ClientDataSetCartao.FieldByName('COD_ESTABELECIMENTO_TEF').AsString:= qryRetaguarda2.FieldByName('COD_ESTABELECIMENTO_TEF').AsString;
+                ClientDataSetCartao.FieldByName('VAL_TOTAL_NF').AsFloat:= qryRetaguarda2.FieldByName('VAL_TOTAL_NF').AsFloat;
+                ClientDataSetCartao.FieldByName('NUM_PARCELA').AsInteger:= qryRetaguarda2.FieldByName('NUM_PARCELA').AsInteger;
+                ClientDataSetCartao.FieldByName('QTD_PARCELA').AsInteger:= qryRetaguarda2.FieldByName('QTD_PARCELA').AsInteger;
+                ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger:= qryRetaguarda2.FieldByName('COD_PARCEIRO').AsInteger;
+                ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger:= qryRetaguarda2.FieldByName('COD_CHAVE').AsInteger;
+                ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  0;
+                ClientDataSetCartao.FieldByName('COD_INTERNO').AsInteger:=  aCli.RecNo;
+                ClientDataSetCartao.FieldByName('FLG_ENCONTRADO').AsBoolean:=  True;
+                ClientDataSetCartao.FieldByName('FLG_QUITADO').AsString:=  qryRetaguarda2.FieldByName('FLG_QUITADO').AsString;
+                ClientDataSetCartao.Post;
+                {ClientDataSetCartao.Append;
+                ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= '0';
+                ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= '0';
+                ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString:= 'Selecionar Registro tem mais de 1 !';
+                ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger:= 0;
+                ClientDataSetCartao.FieldByName('DES_BANDEIRA').AsString:=  '0';
+                ClientDataSetCartao.FieldByName('DTA_EMISSAO').AsDateTime:= Now;
+                ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime:= Now;
+                ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= Now;
+                ClientDataSetCartao.FieldByName('VAL_PARCELA').AsFloat:= 0;
+                ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= 0;
+                ClientDataSetCartao.FieldByName('COD_ADMINISTRADORA_TEF').AsString:= '0';
+                ClientDataSetCartao.FieldByName('NUM_BIN_TEF').AsString:= '0';
+                ClientDataSetCartao.FieldByName('NUM_NSU_HOST_TEF').AsString:= '0';
+                ClientDataSetCartao.FieldByName('COD_TRANSACAO_TEF').AsString:='0';
+                ClientDataSetCartao.FieldByName('COD_INSTITUICAO_TEF').AsString:= '0';
+                ClientDataSetCartao.FieldByName('COD_BANDEIRA_TEF').AsString:= '0';
+                ClientDataSetCartao.FieldByName('NUM_NSU_SITEF').AsString:= '0';
+                ClientDataSetCartao.FieldByName('COD_AUTORIZACAO_TEF').AsString:= '0';
+                ClientDataSetCartao.FieldByName('COD_ESTABELECIMENTO_TEF').AsString:= '0';
+                ClientDataSetCartao.FieldByName('VAL_TOTAL_NF').AsFloat:= 0;
+                ClientDataSetCartao.FieldByName('NUM_PARCELA').AsInteger:= 0;
+                ClientDataSetCartao.FieldByName('QTD_PARCELA').AsInteger:= 0;
+                ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger:= 0;
+                ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger:= 0;
+                ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  0;
+                ClientDataSetCartao.FieldByName('COD_INTERNO').AsInteger:=  aCli.RecNo;
+                ClientDataSetCartao.FieldByName('FLG_ENCONTRADO').AsBoolean:=  False; }
+               end;
 
             end;
             if qryRetaguarda2.RecordCount = 1 then
@@ -151,6 +189,7 @@ begin
               ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  0;
               ClientDataSetCartao.FieldByName('COD_INTERNO').AsInteger:=  aCli.RecNo;
               ClientDataSetCartao.FieldByName('FLG_ENCONTRADO').AsBoolean:=  True;
+              ClientDataSetCartao.FieldByName('FLG_QUITADO').AsString:=  qryRetaguarda2.FieldByName('FLG_QUITADO').AsString;
               ClientDataSetCartao.Post;
             end;
           end
@@ -184,6 +223,8 @@ begin
             ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  0;
             ClientDataSetCartao.FieldByName('COD_INTERNO').AsInteger:=  aCli.RecNo;
             ClientDataSetCartao.FieldByName('FLG_ENCONTRADO').AsBoolean:=  False;
+            ClientDataSetCartao.FieldByName('FLG_ENCONTRADO').AsBoolean:=  False;
+            ClientDataSetCartao.FieldByName('FLG_QUITADO').AsString:=  '-';
             ClientDataSetCartao.Post;
           end;
         end;
@@ -244,33 +285,33 @@ begin
       begin
 
         str:='';
+        ClientDataSetAdmBand.First;
         while not ClientDataSetAdmBand.Eof do
         begin
           qryBordero.Close;
-          qryBordero.Open();
+          qryBordero.Open;
+
+          if ClientDataSetAdmBandCOD_ADMINISTRADORA.AsInteger  = 0  then
+           ClientDataSetCartao.Next;
 
           ClientDataSetCartao.Filtered:=False;
-          ClientDataSetCartao.Filter:= 'COD_PARCEIRO = ' + IntToStr(ClientDataSetAdmBandCOD_ADMINISTRADORA.AsInteger) +
-             'AND COD_BANDEIRA = ' + IntToStr(ClientDataSetAdmBandCOD_BANDEIRA.AsInteger);
-//             'AND DTA_ENTRADA = ' + QuotedStr(DateToStr(ClientDataSetAdmBandDATA_VENDA.AsDateTime));
+          ClientDataSetCartao.Filter:=
+             'COD_PARCEIRO = '     + IntToStr(ClientDataSetAdmBandCOD_ADMINISTRADORA.AsInteger) +
+             'AND COD_BANDEIRA = ' + IntToStr(ClientDataSetAdmBandCOD_BANDEIRA.AsInteger) +
+             'AND FLG_QUITADO = '+ QuotedStr('N');
           ClientDataSetCartao.Filtered:= True;
 
           while not ClientDataSetCartao.Eof do
           begin
-            qtd:=  qtd+1;
-           { str:= str + ' COD_PARCEIRO = ' +  IntToStr(ClientDataSetAdmBandCOD_ADMINISTRADORA.AsInteger);
-                       str:= str + ' COD_BANDEIRA_TEF = ' +  IntToStr(ClientDataSetAdmBandCOD_BANDEIRA.AsInteger);
-                                   str:= str + ' DTA_ENTRADA = ' +  QuotedStr(DateToStr(ClientDataSetAdmBandDATA_VENDA.AsDateTime));}
-            aMemo.Lines.Add(str);
+
+            qtd:=  ClientDataSetCartao.RecordCount;
+
             ClientDataSetCartao.Edit;
             ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:= qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
             ClientDataSetCartao.Post;
 
-            qryAtualizaTitulo.ParamByName('NUM_BORDERO').AsInteger:= qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
-            qryAtualizaTitulo.ParamByName('COD_CHAVE').AsInteger:= ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger;
-            qryAtualizaTitulo.ExecSQL;
 
-            ClientDataSetCartao.Next;
+           ClientDataSetCartao.Next;
           end;
 
           if qtd > 0 then
@@ -278,15 +319,27 @@ begin
            str:= str + ' NUM_BORDERO = ' +  IntToStr(qryBordero.FieldByName('PROXIMO_VALOR').AsInteger)
             + ' Qtd: = ' +  IntToStr(qtd);
            str:= str+#13;
-           qryAtualizaNumBordero.ExecSQL;
            aMemo.Lines.Add(str);
            qtd:=0;
+           str:= '';
+           qryAtualizaNumBordero.ExecSQL;
           end;
+          ClientDataSetCartao.Filtered:=False;
           ClientDataSetAdmBand.Next;
+        end;
+
+        //atuliza registro no banco do erp com o numero de bordero .
+       ClientDataSetCartao.First;
+       while not ClientDataSetCartao.Eof do
+       begin
+         qryAtualizaTitulo.ParamByName('NUM_BORDERO').AsInteger:= ClientDataSetCartaoNUM_BORDERO.AsInteger;
+         qryAtualizaTitulo.ParamByName('COD_CHAVE').AsInteger:= ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger;
+         qryAtualizaTitulo.ExecSQL;
+
+         ClientDataSetCartao.Next;
         end;
       end;
     finally
-      ClientDataSetCartao.Filtered:=False;
     end;
   end;
 end;
@@ -300,7 +353,7 @@ begin
   with DmRetaguarda do
   begin
     qryBordero.Close;
-    qryBordero.Open();
+    qryBordero.Open;
 
     ClientDataSetCartao.First;
     while not ClientDataSetCartao.Eof do
@@ -346,6 +399,7 @@ begin
     progress.Position:= i;
 
     gravar.DelimitedText:= ler.Strings[i];
+
     if ((trim(gravar.DelimitedText))<>'') then
     begin
 {        if (gravar.Strings[5] <> 'Valor Liquidado (R$)')
@@ -386,6 +440,74 @@ begin
              aCli.FieldByName('COD_INTERNO').AsInteger:= cod_interno;
              aCli.Post;
            finally
+           end;
+        end;
+      end;
+  end;
+
+end;
+
+procedure TGetNet.importaArquivoVenda(aCli: TClientDataSet; arquivo: TFileName;
+  progress: TProgressBar);
+var  gravar, ler: TStrings;
+            i,cod_interno: integer;
+    ValConversao: string;
+begin
+  gravar:= TStringList.Create;
+  ler:=    TStringList.Create;
+
+  ler.LoadFromFile(arquivo);
+
+  gravar.Delimiter:=';';
+  gravar.StrictDelimiter:= True;
+
+
+  cod_interno:=0;
+  progress.Min:=0;
+  progress.Max:= ler.Count;
+  for I := 0 to Pred(ler.Count) do
+  begin
+
+    progress.Position:= i;
+
+
+    gravar.DelimitedText:= ler.Strings[i];
+    if ((trim(gravar.DelimitedText))<>'') then
+    begin
+        if (gravar.Strings[6] <> '') and (gravar.Strings[5]  <> 'LANÇAMENTO')  then
+        begin
+           try
+             aCli.Append;
+             aCli.FieldByName('CODIGO_CENTRALIZADOR').AsString:= '0';
+             aCli.FieldByName('CODIGO').AsString:= '0';
+             aCli.FieldByName('VENCIMENTO').AsString:= gravar.Strings[4];
+             aCli.FieldByName('VENCIMENTO_ORIGINAL').AsString:= '0';
+             aCli.FieldByName('PRODUTO').AsString:= gravar.Strings[2];
+             aCli.FieldByName('LANCAMENTO').AsString:= '0';
+             aCli.FieldByName('PLANO_VENDA').AsString:= '0';
+             aCli.FieldByName('PARCELA').AsString:= '0';
+             aCli.FieldByName('TOTAL_PARCELA').AsString:= gravar.Strings[10];
+             aCli.FieldByName('CARTAO').AsString:= gravar.Strings[9];
+             aCli.FieldByName('AUTORIZACAO').AsString:=  gravar.Strings[6];
+             aCli.FieldByName('NUMERO_CV').AsString:= '0';
+             aCli.FieldByName('TERMINAL').AsString:= '0';
+             aCli.FieldByName('DATA_VENDA').AsString:= gravar.Strings[3];
+
+             aCli.FieldByName('VALOR_ORIGINAL').AsFloat:= StrToFloat(Trim(formatValor(gravar.Strings[11])));
+
+             aCli.FieldByName('VALOR_BRUTO').AsFloat:= StrToFloat(formatValor(gravar.Strings[11]));
+
+             aCli.FieldByName('DESCONTO').AsFloat:=StrToFloat(formatValor(gravar.Strings[12]));
+
+             aCli.FieldByName('LIQUIDO').AsFloat:= StrToFloat(Trim(formatValor(gravar.Strings[13])));
+
+             aCli.FieldByName('FLG_ENCONTRADO').AsBoolean:= False;
+             cod_interno:= cod_interno+1;
+             aCli.FieldByName('COD_INTERNO').AsInteger:= cod_interno;
+             aCli.Post;
+           finally
+             aCli.Close;
+             aCli.Open;
            end;
         end;
       end;

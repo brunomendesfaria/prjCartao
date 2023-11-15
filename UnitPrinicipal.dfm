@@ -10,7 +10,7 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
+  OldCreateOrder = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
@@ -19,36 +19,44 @@ object frmPrincipal: TfrmPrincipal
     Left = 0
     Top = 0
     Width = 1510
-    Height = 121
+    Height = 174
     Align = alTop
     TabOrder = 0
     object Label2: TLabel
-      Left = 272
-      Top = 80
+      Left = 172
+      Top = 89
       Width = 68
       Height = 13
       Caption = 'Qtd Reg. Arq.'
     end
     object Label3: TLabel
-      Left = 416
-      Top = 80
+      Left = 316
+      Top = 89
       Width = 70
       Height = 13
       Caption = 'Qtd Reg. ERP.'
     end
     object Label1: TLabel
-      Left = 568
-      Top = 82
+      Left = 468
+      Top = 91
       Width = 71
       Height = 13
       Caption = 'Val. Bruto Arq.'
     end
     object Label4: TLabel
-      Left = 712
-      Top = 82
+      Left = 612
+      Top = 91
       Width = 70
       Height = 13
       Caption = 'Val. Bruto Erp.'
+    end
+    object DataPagtoTicket: TLabel
+      Left = 336
+      Top = 16
+      Width = 85
+      Height = 13
+      Caption = 'Data Pagto Ticket'
+      Visible = False
     end
     object Button1: TButton
       Left = 8
@@ -69,6 +77,7 @@ object frmPrincipal: TfrmPrincipal
       OnChange = ComboBoxAdmChange
       Items.Strings = (
         'GetNet'
+        'Ticket'
         'Bin'
         'Cielo'
         'Rede'
@@ -85,8 +94,8 @@ object frmPrincipal: TfrmPrincipal
       Text = 'Edit1'
     end
     object ButtonImportar: TButton
-      Left = 8
-      Top = 90
+      Left = 5
+      Top = 139
       Width = 75
       Height = 25
       Caption = 'Importar'
@@ -103,8 +112,8 @@ object frmPrincipal: TfrmPrincipal
       Text = 'Num. Loja'
     end
     object DBEdit2: TDBEdit
-      Left = 416
-      Top = 95
+      Left = 316
+      Top = 104
       Width = 121
       Height = 21
       DataField = 'QtdRegErp'
@@ -112,8 +121,8 @@ object frmPrincipal: TfrmPrincipal
       TabOrder = 5
     end
     object DBEdit4: TDBEdit
-      Left = 714
-      Top = 96
+      Left = 614
+      Top = 105
       Width = 121
       Height = 21
       DataField = 'val_bruto'
@@ -121,8 +130,8 @@ object frmPrincipal: TfrmPrincipal
       TabOrder = 6
     end
     object DBEditQtdRegArq: TDBEdit
-      Left = 272
-      Top = 95
+      Left = 172
+      Top = 105
       Width = 121
       Height = 21
       DataField = 'QTDREGARQ'
@@ -130,8 +139,8 @@ object frmPrincipal: TfrmPrincipal
       TabOrder = 7
     end
     object DBEdit3: TDBEdit
-      Left = 569
-      Top = 95
+      Left = 469
+      Top = 104
       Width = 121
       Height = 21
       DataField = 'valTotal'
@@ -148,8 +157,8 @@ object frmPrincipal: TfrmPrincipal
       OnClick = ButtonLimparClick
     end
     object BtnGeraBodero: TButton
-      Left = 156
-      Top = 90
+      Left = 86
+      Top = 139
       Width = 75
       Height = 25
       Caption = 'Gera Bord.'
@@ -157,12 +166,34 @@ object frmPrincipal: TfrmPrincipal
       TabOrder = 10
       OnClick = BtnGeraBoderoClick
     end
+    object RadioGroup: TRadioGroup
+      Left = 8
+      Top = 88
+      Width = 153
+      Height = 45
+      Caption = 'Venda / Pagamento'
+      Columns = 2
+      Items.Strings = (
+        'Venda'
+        'Pagamento')
+      TabOrder = 11
+    end
+    object DtaPagtoTicket: TDateTimePicker
+      Left = 427
+      Top = 13
+      Width = 186
+      Height = 21
+      Date = 45238.000000000000000000
+      Time = 0.793764201385784000
+      TabOrder = 12
+      Visible = False
+    end
   end
   object Panel1: TPanel
     Left = 0
-    Top = 121
+    Top = 174
     Width = 1306
-    Height = 640
+    Height = 587
     Align = alClient
     Caption = 'Panel1'
     TabOrder = 1
@@ -170,7 +201,7 @@ object frmPrincipal: TfrmPrincipal
       Left = 1
       Top = 1
       Width = 1304
-      Height = 638
+      Height = 585
       ActivePage = TabSheet1
       Align = alClient
       TabOrder = 0
@@ -181,7 +212,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 0
           Top = 0
           Width = 1296
-          Height = 610
+          Height = 557
           Align = alClient
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -250,7 +281,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 0
           Top = 0
           Width = 1296
-          Height = 610
+          Height = 557
           Align = alClient
           DataSource = DmGetNet.DataSourceGetNet
           TabOrder = 1
@@ -380,7 +411,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 0
           Top = 0
           Width = 1296
-          Height = 610
+          Height = 557
           Align = alClient
           DataSource = DataSourceCielo
           TabOrder = 2
@@ -394,7 +425,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 0
           Top = 0
           Width = 1296
-          Height = 610
+          Height = 557
           Align = alClient
           BorderStyle = bsNone
           DataSource = DataSourceAdministradora
@@ -452,6 +483,46 @@ object frmPrincipal: TfrmPrincipal
               Visible = True
             end>
         end
+        object DBGridTicket: TDBGrid
+          Left = 0
+          Top = 0
+          Width = 1296
+          Height = 557
+          Align = alClient
+          DataSource = DMTicket.DSTicket
+          TabOrder = 4
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'FLG_ENCONTRADO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PRODUTO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA_TRANSACAO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'COD_INTERNO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR'
+              Visible = True
+            end>
+        end
       end
       object TabSheet2: TTabSheet
         Caption = 'Intersolid E.R.P'
@@ -460,7 +531,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 0
           Top = 0
           Width = 1296
-          Height = 610
+          Height = 557
           Align = alClient
           DataSource = DmRetaguarda.DataSourceCartao
           PopupMenu = PopupMenu
@@ -649,7 +720,7 @@ object frmPrincipal: TfrmPrincipal
           Left = 0
           Top = 0
           Width = 1296
-          Height = 610
+          Height = 557
           Align = alClient
           DataSource = DataSourceCartaoBandeira
           TabOrder = 0
@@ -688,16 +759,16 @@ object frmPrincipal: TfrmPrincipal
   end
   object Panel3: TPanel
     Left = 1306
-    Top = 121
+    Top = 174
     Width = 204
-    Height = 640
+    Height = 587
     Align = alRight
     TabOrder = 2
     object Memo1: TMemo
       Left = 1
       Top = 249
       Width = 202
-      Height = 390
+      Height = 337
       Align = alClient
       Color = clCream
       Ctl3D = True
@@ -968,54 +1039,6 @@ object frmPrincipal: TfrmPrincipal
     DataSet = ClientDataSetCielo
     Left = 64
     Top = 304
-  end
-  object SQLConnection: TSQLConnection
-    DriverName = 'Oracle'
-    LoginPrompt = False
-    Params.Strings = (
-      'DriverUnit=Data.DBXOracle'
-      
-        'DriverPackageLoader=TDBXDynalinkDriverLoader,DBXOracleDriver200.' +
-        'bpl'
-      
-        'DriverAssemblyLoader=Borland.Data.TDBXDynalinkDriverLoader,Borla' +
-        'nd.Data.DbxCommonDriver,Version=20.0.0.0,Culture=neutral,PublicK' +
-        'eyToken=91d62ebb5b0d1b1b'
-      
-        'MetaDataPackageLoader=TDBXOracleMetaDataCommandFactory,DbxOracle' +
-        'Driver200.bpl'
-      
-        'MetaDataAssemblyLoader=Borland.Data.TDBXOracleMetaDataCommandFac' +
-        'tory,Borland.Data.DbxOracleDriver,Version=20.0.0.0,Culture=neutr' +
-        'al,PublicKeyToken=91d62ebb5b0d1b1b'
-      'GetDriverFunc=getSQLDriverORACLE'
-      'LibraryName=dbxora.dll'
-      'LibraryNameOsx=libsqlora.dylib'
-      'VendorLib=oci.dll'
-      'VendorLibWin64=oci.dll'
-      'VendorLibOsx=libociei.dylib'
-      'Database=ORCL'
-      'User_Name=INTERSOLID'
-      'Password=1nt3rs0l1d'
-      'MaxBlobSize=-1'
-      'LocaleCode=0000'
-      'IsolationLevel=ReadCommitted'
-      'RowSetSize=20'
-      'OSAuthentication=False'
-      'MultipleTransactions=False'
-      'TrimChar=False')
-    Left = 1032
-    Top = 16
-  end
-  object FDConnectionRetaguarda: TFDConnection
-    Params.Strings = (
-      'Database=PIANTA'
-      'User_Name=intersolid'
-      'Password=1nt3rs0l1d'
-      'DriverID=Ora')
-    LoginPrompt = False
-    Left = 981
-    Top = 64
   end
   object DataSourceAdministradora: TDataSource
     DataSet = ClientDataSetAdministradora

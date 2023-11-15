@@ -12,7 +12,7 @@ uses
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.Oracle, FireDAC.Phys.OracleDef,
   FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  UnitSodexoAlimentaPass, Vcl.Mask, Vcl.DBCtrls, Vcl.Menus;
+  UnitSodexoAlimentaPass, Vcl.Mask, Vcl.DBCtrls, Vcl.Menus, UnitTicket;
 
 type
   TfrmPrincipal = class(TForm)
@@ -62,9 +62,7 @@ type
     ClientDataSetCieloNUMERO_OPERACAO: TStringField;
     ClientDataSetCieloTAXA_ANTECIPACAO: TStringField;
     ClientDataSetCieloCOD_VENDA: TStringField;
-    SQLConnection: TSQLConnection;
     EditCodLoja: TEdit;
-    FDConnectionRetaguarda: TFDConnection;
     DBGridAdministradora: TDBGrid;
     DataSourceAdministradora: TDataSource;
     ClientDataSetAdministradora: TClientDataSet;
@@ -104,6 +102,10 @@ type
     TabSheet3: TTabSheet;
     DBGrid2: TDBGrid;
     DataSourceCartaoBandeira: TDataSource;
+    RadioGroup: TRadioGroup;
+    DtaPagtoTicket: TDateTimePicker;
+    DataPagtoTicket: TLabel;
+    DBGridTicket: TDBGrid;
     procedure Button1Click(Sender: TObject);
     procedure ButtonImportarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -129,6 +131,7 @@ type
     { Private declarations }
     BAscDesc: Boolean;
     GetNet: TGetNet;
+    Ticket: TTicket;
     Cielo: TCielo;
     SodexoAlimentaPass: TSodexoAlimentaPass;
     procedure fechaClient;
@@ -145,7 +148,8 @@ implementation
 
 {$R *.dfm}
 
-uses UDmRetaguarda, UDmGetNet, UnitProgressoImportacao, UnitPesqTitCart;
+uses UDmRetaguarda, UDmGetNet, UnitProgressoImportacao, UnitPesqTitCart,
+  uDmTciket;
 
 
 procedure TfrmPrincipal.BtnGeraBoderoClick(Sender: TObject);
@@ -227,65 +231,88 @@ end;
 
 procedure TfrmPrincipal.ButtonImportarClick(Sender: TObject);
 begin
+  case RadioGroup.ItemIndex of
+    1:
+    begin
+      if ComboBoxAdm.ItemIndex = -1 then
+      begin
+        MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
+        exit;
+      end
+      else
+      begin
+        try
+          case ComboBoxAdm.ItemIndex of
+            0:   //GetNet
+            begin
+              with DmRetaguarda, DmGetNet  do
+              begin
+                DBGridGetNet.BringToFront;
+                fechaClient;
+                ClientDataSetGetNet.Open;
+                ClientDataSetGetNet.EmptyDataSet;
+                GetNet.importaArquivo(ClientDataSetGetNet,OpenDialog1.FileName,ProgressBar1);
+                GetNet.BuscaTitulos(ClientDataSetGetNet,ProgressBar2);
+                ClientDataSetCartao.Open;
+                alimentaClientDataSetAdmBand;
+                BtnGeraBodero.Enabled:=True;
+              end;
+            end;
+            1:
+            begin
+             with DmRetaguarda, DMTicket  do
+              begin
+                DBGridTicket.BringToFront;
+                fechaClient;
+                CliTicket.Open;
+                CliTicket.EmptyDataSet;
+//                DBEditQtdRegArq.DataField:= 'QtdReg';
+//                DBEditQtdRegArq.DataSource:= DMTicket.DSTicket;
+                Ticket.importaArquivo(CliTicket,OpenDialog1.FileName,ProgressBar1);
+                Ticket.BuscaTitulos(CliTicket, ProgressBar2);
+                CliTicket.Close;
+                CliTicket.Open;
+                //GetNet.BuscaTitulos(ClientDataSetGetNet,ProgressBar2);
+                //ClientDataSetCartao.Open;
+                //alimentaClientDataSetAdmBand;
+                //BtnGeraBodero.Enabled:=True;
+              end;
 
-  if ComboBoxAdm.ItemIndex = -1 then
-  begin
-    MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
-    exit;
-  end
-  else
-  begin
-    try
-      case ComboBoxAdm.ItemIndex of
-        0:   //GetNet
-        begin
-          with DmRetaguarda, DmGetNet  do
-          begin
-            DBGridGetNet.BringToFront;
-            fechaClient;
-            ClientDataSetGetNet.Open;
-            ClientDataSetGetNet.EmptyDataSet;
-            GetNet.importaArquivo(ClientDataSetGetNet,OpenDialog1.FileName,ProgressBar1);
-            GetNet.BuscaTitulos(ClientDataSetGetNet,ProgressBar2);
-            ClientDataSetCartao.Open;
-            alimentaClientDataSetAdmBand;
-            BtnGeraBodero.Enabled:=True;
+            end;
+
+            2:
+            begin
+              DBGridCielo.BringToFront;
+              fechaClient;
+              ClientDataSetCielo.Open;
+              ClientDataSetCielo.EmptyDataSet;
+              Cielo.importaArquivo(ClientDataSetCielo,  OpenDialog1.FileName);
+            end;
+            4:
+            begin
+              with DmRetaguarda do
+              begin
+                DBGridAdministradora.BringToFront;
+                fechaClient;
+                ClientDataSetAdministradora.Open;
+                ClientDataSetAdministradora.EmptyDataSet;
+                SodexoAlimentaPass.importaArquivo(ClientDataSetAdministradora,OpenDialog1.FileName);
+                qryBordero.Close;
+                qryBordero.Open;
+                buscaTitulos(ClientDataSetAdministradora);
+                ClientDataSetCartao.Open;
+                qryAtualizaNumBordero.ExecSQL;
+                DmRetaguarda.ClientDataSetCartao.IndexFieldNames:= 'FLG_ENCONTRADO';
+
+              end;
+
+            end;
           end;
-        end;
 
-        1:
-        begin
-        end;
-
-        2:
-        begin
-          DBGridCielo.BringToFront;
-          fechaClient;
-          ClientDataSetCielo.Open;
-          ClientDataSetCielo.EmptyDataSet;
-          Cielo.importaArquivo(ClientDataSetCielo,  OpenDialog1.FileName);
-        end;
-        4:
-        begin
-          with DmRetaguarda do
-          begin
-            DBGridAdministradora.BringToFront;
-            fechaClient;
-            ClientDataSetAdministradora.Open;
-            ClientDataSetAdministradora.EmptyDataSet;
-            SodexoAlimentaPass.importaArquivo(ClientDataSetAdministradora,OpenDialog1.FileName);
-            qryBordero.Close;
-            qryBordero.Open;
-            buscaTitulos(ClientDataSetAdministradora);
-            ClientDataSetCartao.Open;
-            qryAtualizaNumBordero.ExecSQL;
-          end;
+        finally
 
         end;
       end;
-
-    finally
-
     end;
   end;
 end;
@@ -294,6 +321,7 @@ end;
 procedure TfrmPrincipal.ButtonLimparClick(Sender: TObject);
 begin
   fechaClient;
+  Memo1.Clear;
 end;
 
 procedure TfrmPrincipal.ClientDataSetAdministradoraAfterScroll(DataSet: TDataSet);
@@ -309,6 +337,16 @@ procedure TfrmPrincipal.ComboBoxAdmChange(Sender: TObject);
 begin
   if ComboBoxAdm.Items[ComboBoxAdm.ItemIndex] = 'GetNet' then
      GetNet := TGetNet.Create;
+
+  DataPagtoTicket.Visible:=False;
+  DtaPagtoTicket.Visible:=False;
+  if ComboBoxAdm.Items[ComboBoxAdm.ItemIndex] = 'Ticket' then
+  begin
+    DataPagtoTicket.Visible:=True;
+    DtaPagtoTicket.Visible:=True;
+  end;
+
+
 end;
 
 procedure TfrmPrincipal.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -394,7 +432,7 @@ end;
 
 procedure TfrmPrincipal.fechaClient;
 begin
- with DmGetNet, DmRetaguarda do
+ with DmGetNet, DmRetaguarda, DMTicket do
  begin
    if ClientDataSetAdministradora.Active then
    begin
@@ -436,6 +474,11 @@ begin
       ClientDataSetAdmBand.EmptyDataSet;
      ClientDataSetAdmBand.Close;
    end;
+   if CliTicket.Active then
+   begin
+      CliTicket.EmptyDataSet;
+      CliTicket.Close;
+   end;
    ProgressBar1.Min:=0;
    ProgressBar1.Max:=0;
    ProgressBar2.Min:=0;
@@ -450,10 +493,10 @@ end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
- FDConnectionRetaguarda.Connected:= True;
  DmRetaguarda:= TDmRetaguarda.Create(Self);
  ClientDataSetAdministradora.CreateDataSet;
  dmGetNet:= TDmGetNet.Create(Self);
+ DMTicket:= TDMTicket.Create(Self);
 
 end;
 
@@ -463,13 +506,18 @@ begin
     GetNet.DisposeOf;
   if Cielo<>nil then
       Cielo.DisposeOf;
+  if Ticket<>nil then
+     Ticket.DisposeOf;
 end;
 
 procedure TfrmPrincipal.PageControlCartaoChange(Sender: TObject);
 begin
   if DmRetaguarda.ClientDataSetCartaoCOD_INTERNO.AsInteger > 0 then
   begin
-    DmGetNet.ClientDataSetGetNet.RecNo:=DmRetaguarda.ClientDataSetCartaoCOD_INTERNO.AsInteger;
+    if DmGetNet.ClientDataSetGetNet.Active then
+      DmGetNet.ClientDataSetGetNet.RecNo:=DmRetaguarda.ClientDataSetCartaoCOD_INTERNO.AsInteger;
+    if DMTicket.CliTicket.Active then
+      DMTicket.CliTicket.RecNo:= DmRetaguarda.ClientDataSetCartaoCOD_INTERNO.AsInteger;
   end;
 
 end;

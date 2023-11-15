@@ -55,9 +55,6 @@ Coordinates=857,771,171,33
 [ClientDataSetAdministradoraDESCRICAO]
 Coordinates=799,881,219,33
 
-[FDConnectionRetaguarda]
-Coordinates=592,1574,141,33
-
 [TabSheet2]
 Coordinates=200,894,66,33
 Visible=True
@@ -146,9 +143,6 @@ Coordinates=1769,276,217,33
 [ClientDataSetCieloCNPJ_INST_ORIG_NEG]
 Coordinates=1769,331,223,33
 
-[SQLConnection]
-Coordinates=857,2014,92,33
-
 [ClientDataSetCieloAGENCIA]
 Coordinates=1189,1871,153,33
 
@@ -180,7 +174,7 @@ Coordinates=1769,551,208,33
 Coordinates=1769,606,230,33
 
 []
-Coordinates=222,1725,105,33
+Coordinates=857,2014,92,33
 Visible=True
 
 [DmRetaguarda.qryRetaguarda]
