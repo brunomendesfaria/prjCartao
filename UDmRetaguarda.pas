@@ -7,7 +7,8 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.OracleDef,
-  FireDAC.Phys, FireDAC.Phys.Oracle, Datasnap.DBClient;
+  FireDAC.Phys, FireDAC.Phys.Oracle, Datasnap.DBClient, FireDAC.UI.Intf,
+  FireDAC.VCLUI.Wait, FireDAC.Comp.UI;
 
 type
   TDmRetaguarda = class(TDataModule)
@@ -75,6 +76,40 @@ type
     ClientDataSetCartaoNUM_PARCELA: TIntegerField;
     ClientDataSetCartaoQTD_PARCELA: TIntegerField;
     ClientDataSetAdmBandDATA_VENDA: TDateField;
+    ClientDataSetCartaoCOD_INTERNO: TIntegerField;
+    ClientDataSetCartaoFLG_ENCONTRADO: TBooleanField;
+    qryRetaguarda2: TFDQuery;
+    StringField3: TStringField;
+    StringField10: TStringField;
+    BCDField1: TBCDField;
+    StringField11: TStringField;
+    BCDField7: TBCDField;
+    StringField12: TStringField;
+    DateTimeField4: TDateTimeField;
+    DateTimeField5: TDateTimeField;
+    DateTimeField6: TDateTimeField;
+    FloatField1: TFloatField;
+    FloatField3: TFloatField;
+    StringField13: TStringField;
+    BCDField8: TBCDField;
+    StringField14: TStringField;
+    BCDField9: TBCDField;
+    StringField15: TStringField;
+    BCDField10: TBCDField;
+    StringField16: TStringField;
+    BCDField11: TBCDField;
+    StringField17: TStringField;
+    FloatField4: TFloatField;
+    BCDField12: TBCDField;
+    BCDField13: TBCDField;
+    BCDField14: TBCDField;
+    BCDField15: TBCDField;
+    qryRetaguardaFLG_QUITADO: TStringField;
+    ClientDataSetCartaoFLG_QUITADO: TStringField;
+    qryRetaguarda2FLG_QUITADO: TStringField;
+    DataSourceCartaoBandeira: TDataSource;
+    ClientDataSetAdmBandDES_ADMINISTRADORA: TStringField;
+    ClientDataSetAdmBandDES_BANDEIRA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
@@ -109,22 +144,23 @@ begin
 
     while not ClientDataSetCartao.Eof do
     begin
-      if not (ClientDataSetAdmBand.Locate('COD_ADMINISTRADORA;COD_BANDEIRA;DATA_VENCIMENTO;DATA_VENDA',
+      if not (ClientDataSetAdmBand.Locate('COD_ADMINISTRADORA;COD_BANDEIRA',
        VarArrayOf([ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger,
-         ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger,
-         ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime,
-         ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime]),[])) then
+         ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger]),[])) then
       begin
         ClientDataSetAdmBand.Append;
         ClientDataSetAdmBand.FieldByName('COD_ADMINISTRADORA').AsInteger:= ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger;
         ClientDataSetAdmBand.FieldByName('COD_BANDEIRA').AsInteger:=      ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger;
-        ClientDataSetAdmBand.FieldByName('DATA_VENCIMENTO').AsDateTime:=  ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime;
-        ClientDataSetAdmBand.FieldByName('DATA_VENDA').AsDateTime:=  ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime;
+        ClientDataSetAdmBand.FieldByName('DES_ADMINISTRADORA').AsString:= ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString;
+        ClientDataSetAdmBand.FieldByName('DES_BANDEIRA').AsString:=      ClientDataSetCartao.FieldByName('DES_BANDEIRA').AsString;
         ClientDataSetAdmBand.post;
       end;
       ClientDataSetCartao.Next;
     end;
   end;
+  ClientDataSetAdmBand.IndexFieldNames:= 'COD_ADMINISTRADORA;COD_BANDEIRA';
+  ClientDataSetAdmBand.IndexName:= '';
+  ClientDataSetAdmBand.First;
 
 end;
 

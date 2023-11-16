@@ -1,8 +1,8 @@
 object DmGetNet: TDmGetNet
-  OldCreateOrder = False
+  OldCreateOrder = True
   OnCreate = DataModuleCreate
-  Height = 150
-  Width = 215
+  Height = 289
+  Width = 292
   object qryCartao: TFDQuery
     Connection = DmConexao.FDConnection
     Left = 16
@@ -84,35 +84,38 @@ object DmGetNet: TDmGetNet
       FieldName = 'DATA_VENDA'
       Size = 15
     end
-    object ClientDataSetGetNetVALOR_ORIGINAL: TStringField
-      DisplayLabel = 'Valor Original '
+    object ClientDataSetGetNetFLG_ENCONTRADO: TBooleanField
+      FieldName = 'FLG_ENCONTRADO'
+    end
+    object ClientDataSetGetNetvalLiquido: TFloatField
+      FieldName = 'valLiquido'
+    end
+    object ClientDataSetGetNetVALOR_ORIGINAL: TFloatField
       FieldName = 'VALOR_ORIGINAL'
-      Size = 15
     end
-    object ClientDataSetGetNetVALOR_BRUTO: TStringField
-      DisplayLabel = 'Valor Bruto'
+    object ClientDataSetGetNetVALOR_BRUTO: TFloatField
       FieldName = 'VALOR_BRUTO'
-      Size = 15
     end
-    object ClientDataSetGetNetDESCONTO: TStringField
-      DisplayLabel = 'Desconto'
+    object ClientDataSetGetNetDESCONTO: TFloatField
       FieldName = 'DESCONTO'
-      Size = 15
     end
-    object ClientDataSetGetNetLIQUIDO: TStringField
-      DisplayLabel = 'L'#237'quido'
+    object ClientDataSetGetNetLIQUIDO: TFloatField
       FieldName = 'LIQUIDO'
-      Size = 15
     end
-    object ClientDataSetGetNetVALOR_TOTAL_BRUTO: TAggregateField
-      FieldName = 'VALOR_TOTAL_BRUTO'
-      Active = True
-      DisplayName = ''
+    object ClientDataSetGetNetCOD_INTERNO: TIntegerField
+      FieldName = 'COD_INTERNO'
     end
     object ClientDataSetGetNetQTDREGARQ: TAggregateField
       FieldName = 'QTDREGARQ'
       Active = True
       DisplayName = ''
+      Expression = 'count(*)'
+    end
+    object ClientDataSetGetNetVALTOTAL: TAggregateField
+      FieldName = 'VALTOTAL'
+      Active = True
+      DisplayName = ''
+      Expression = 'SUM(LIQUIDO)'
     end
   end
   object DataSourceGetNet: TDataSource

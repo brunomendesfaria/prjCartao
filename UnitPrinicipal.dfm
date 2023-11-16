@@ -2,15 +2,15 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'Conciliador'
-  ClientHeight = 604
-  ClientWidth = 1460
+  ClientHeight = 761
+  ClientWidth = 1510
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
+  OldCreateOrder = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
@@ -18,37 +18,45 @@ object frmPrincipal: TfrmPrincipal
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 1460
-    Height = 121
+    Width = 1510
+    Height = 174
     Align = alTop
     TabOrder = 0
     object Label2: TLabel
-      Left = 272
-      Top = 80
+      Left = 172
+      Top = 89
       Width = 68
       Height = 13
       Caption = 'Qtd Reg. Arq.'
     end
     object Label3: TLabel
-      Left = 416
-      Top = 80
+      Left = 316
+      Top = 89
       Width = 70
       Height = 13
       Caption = 'Qtd Reg. ERP.'
     end
     object Label1: TLabel
-      Left = 568
-      Top = 82
+      Left = 468
+      Top = 91
       Width = 71
       Height = 13
       Caption = 'Val. Bruto Arq.'
     end
     object Label4: TLabel
-      Left = 712
-      Top = 82
+      Left = 612
+      Top = 91
       Width = 70
       Height = 13
       Caption = 'Val. Bruto Erp.'
+    end
+    object DataPagtoTicket: TLabel
+      Left = 336
+      Top = 16
+      Width = 85
+      Height = 13
+      Caption = 'Data Pagto Ticket'
+      Visible = False
     end
     object Button1: TButton
       Left = 8
@@ -69,6 +77,7 @@ object frmPrincipal: TfrmPrincipal
       OnChange = ComboBoxAdmChange
       Items.Strings = (
         'GetNet'
+        'Ticket'
         'Bin'
         'Cielo'
         'Rede'
@@ -85,8 +94,8 @@ object frmPrincipal: TfrmPrincipal
       Text = 'Edit1'
     end
     object ButtonImportar: TButton
-      Left = 8
-      Top = 90
+      Left = 5
+      Top = 139
       Width = 75
       Height = 25
       Caption = 'Importar'
@@ -103,8 +112,8 @@ object frmPrincipal: TfrmPrincipal
       Text = 'Num. Loja'
     end
     object DBEdit2: TDBEdit
-      Left = 416
-      Top = 95
+      Left = 316
+      Top = 104
       Width = 121
       Height = 21
       DataField = 'QtdRegErp'
@@ -112,56 +121,98 @@ object frmPrincipal: TfrmPrincipal
       TabOrder = 5
     end
     object DBEdit4: TDBEdit
-      Left = 714
-      Top = 96
+      Left = 614
+      Top = 105
       Width = 121
       Height = 21
       DataField = 'val_bruto'
       DataSource = DmRetaguarda.DataSourceCartao
       TabOrder = 6
     end
-    object DBEdit1: TDBEdit
-      Left = 272
-      Top = 96
+    object DBEditQtdRegArq: TDBEdit
+      Left = 172
+      Top = 105
       Width = 121
       Height = 21
       DataField = 'QTDREGARQ'
-      DataSource = DataSourceAdministradora
+      DataSource = DmGetNet.DataSourceGetNet
       TabOrder = 7
     end
     object DBEdit3: TDBEdit
-      Left = 569
-      Top = 95
+      Left = 468
+      Top = 105
       Width = 121
       Height = 21
-      DataField = 'VAL_TOTAL'
-      DataSource = DataSourceAdministradora
+      DataField = 'valTotal'
+      DataSource = DmGetNet.DataSourceGetNet
       TabOrder = 8
+    end
+    object ButtonLimpar: TButton
+      Left = 240
+      Top = 9
+      Width = 75
+      Height = 25
+      Caption = 'Limpar tela'
+      TabOrder = 9
+      OnClick = ButtonLimparClick
+    end
+    object BtnGeraBodero: TButton
+      Left = 86
+      Top = 139
+      Width = 75
+      Height = 25
+      Caption = 'Gera Bord.'
+      Enabled = False
+      TabOrder = 10
+      OnClick = BtnGeraBoderoClick
+    end
+    object RadioGroup: TRadioGroup
+      Left = 8
+      Top = 88
+      Width = 153
+      Height = 45
+      Caption = 'Venda / Pagamento'
+      Columns = 2
+      Items.Strings = (
+        'Venda'
+        'Pagamento')
+      TabOrder = 11
+    end
+    object DtaPagtoTicket: TDateTimePicker
+      Left = 427
+      Top = 13
+      Width = 186
+      Height = 21
+      Date = 45238.000000000000000000
+      Time = 0.793764201385784000
+      TabOrder = 12
+      Visible = False
     end
   end
   object Panel1: TPanel
     Left = 0
-    Top = 121
-    Width = 1256
-    Height = 483
+    Top = 174
+    Width = 1306
+    Height = 587
     Align = alClient
     Caption = 'Panel1'
     TabOrder = 1
-    object PageControl1: TPageControl
+    object PageControlCartao: TPageControl
       Left = 1
       Top = 1
-      Width = 1254
-      Height = 481
-      ActivePage = TabSheet1
+      Width = 1304
+      Height = 585
+      ActivePage = TabSheet3
       Align = alClient
       TabOrder = 0
+      OnChange = PageControlCartaoChange
       object TabSheet1: TTabSheet
         Caption = 'Administradora'
         object DBGridBin: TDBGrid
           Left = 0
           Top = 0
-          Width = 1246
-          Height = 453
+          Width = 1296
+          Height = 557
           Align = alClient
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -229,8 +280,8 @@ object frmPrincipal: TfrmPrincipal
         object DBGridGetNet: TDBGrid
           Left = 0
           Top = 0
-          Width = 1246
-          Height = 453
+          Width = 1296
+          Height = 557
           Align = alClient
           DataSource = DmGetNet.DataSourceGetNet
           TabOrder = 1
@@ -239,12 +290,128 @@ object frmPrincipal: TfrmPrincipal
           TitleFont.Height = -11
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          OnDrawDataCell = DBGridGetNetDrawDataCell
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'CODIGO_CENTRALIZADOR'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'CODIGO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VENCIMENTO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VENCIMENTO_ORIGINAL'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PRODUTO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'LANCAMENTO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PLANO_VENDA'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PARCELA'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TOTAL_PARCELA'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'CARTAO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'AUTORIZACAO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NUMERO_CV'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TERMINAL'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA_VENDA'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR_ORIGINAL'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR_BRUTO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DESCONTO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'LIQUIDO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FLG_ENCONTRADO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'COD_INTERNO'
+              Width = 64
+              Visible = True
+            end>
         end
         object DBGridCielo: TDBGrid
           Left = 0
           Top = 0
-          Width = 1246
-          Height = 453
+          Width = 1296
+          Height = 557
           Align = alClient
           DataSource = DataSourceCielo
           TabOrder = 2
@@ -257,9 +424,10 @@ object frmPrincipal: TfrmPrincipal
         object DBGridAdministradora: TDBGrid
           Left = 0
           Top = 0
-          Width = 1246
-          Height = 453
+          Width = 1296
+          Height = 557
           Align = alClient
+          BorderStyle = bsNone
           DataSource = DataSourceAdministradora
           TabOrder = 3
           TitleFont.Charset = DEFAULT_CHARSET
@@ -267,6 +435,7 @@ object frmPrincipal: TfrmPrincipal
           TitleFont.Height = -11
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          OnDrawColumnCell = DBGridAdministradoraDrawColumnCell
           Columns = <
             item
               Expanded = False
@@ -314,6 +483,50 @@ object frmPrincipal: TfrmPrincipal
               Visible = True
             end>
         end
+        object DBGridTicket: TDBGrid
+          Left = 0
+          Top = 0
+          Width = 1296
+          Height = 557
+          Align = alClient
+          DataSource = DMTicket.DSTicket
+          TabOrder = 4
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'FLG_ENCONTRADO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PRODUTO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA_TRANSACAO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'COD_INTERNO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR'
+              Width = 64
+              Visible = True
+            end>
+        end
       end
       object TabSheet2: TTabSheet
         Caption = 'Intersolid E.R.P'
@@ -321,10 +534,11 @@ object frmPrincipal: TfrmPrincipal
         object DBGrid1: TDBGrid
           Left = 0
           Top = 0
-          Width = 1246
-          Height = 453
+          Width = 1296
+          Height = 557
           Align = alClient
           DataSource = DmRetaguarda.DataSourceCartao
+          PopupMenu = PopupMenu
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
@@ -332,16 +546,11 @@ object frmPrincipal: TfrmPrincipal
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
           OnDrawColumnCell = DBGrid1DrawColumnCell
+          OnMouseDown = DBGrid1MouseDown
           Columns = <
             item
               Expanded = False
               FieldName = 'NUM_CGC'
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'COD_PARCEIRO'
-              Width = 64
               Visible = True
             end
             item
@@ -353,12 +562,6 @@ object frmPrincipal: TfrmPrincipal
             item
               Expanded = False
               FieldName = 'COD_BANDEIRA'
-              Width = 64
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'DES_BANDEIRA'
               Width = 64
               Visible = True
             end
@@ -377,12 +580,6 @@ object frmPrincipal: TfrmPrincipal
             item
               Expanded = False
               FieldName = 'DTA_VENCIMENTO'
-              Width = 64
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'VAL_PARCELA'
               Width = 64
               Visible = True
             end
@@ -448,6 +645,42 @@ object frmPrincipal: TfrmPrincipal
             end
             item
               Expanded = False
+              FieldName = 'DES_LOJA'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'COD_CHAVE'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NUM_BORDERO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'COD_PARCEIRO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DES_BANDEIRA'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VAL_PARCELA'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
               FieldName = 'VAL_TOTAL_NF'
               Width = 64
               Visible = True
@@ -466,20 +699,69 @@ object frmPrincipal: TfrmPrincipal
             end
             item
               Expanded = False
-              FieldName = 'DES_LOJA'
+              FieldName = 'COD_INTERNO'
               Width = 64
               Visible = True
             end
             item
               Expanded = False
-              FieldName = 'COD_CHAVE'
+              FieldName = 'FLG_ENCONTRADO'
               Width = 64
               Visible = True
             end
             item
               Expanded = False
-              FieldName = 'NUM_BORDERO'
+              FieldName = 'FLG_QUITADO'
               Width = 64
+              Visible = True
+            end>
+        end
+      end
+      object TabSheet3: TTabSheet
+        Caption = 'Cart'#227'o / Bandeira'
+        ImageIndex = 2
+        object DBGrid2: TDBGrid
+          Left = 0
+          Top = 0
+          Width = 1296
+          Height = 557
+          Align = alClient
+          DataSource = DmRetaguarda.DataSourceCartaoBandeira
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'COD_ADMINISTRADORA'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DES_ADMINISTRADORA'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'COD_BANDEIRA'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DES_BANDEIRA'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA_VENCIMENTO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA_VENDA'
               Visible = True
             end>
         end
@@ -487,23 +769,23 @@ object frmPrincipal: TfrmPrincipal
     end
   end
   object Panel3: TPanel
-    Left = 1256
-    Top = 121
+    Left = 1306
+    Top = 174
     Width = 204
-    Height = 483
+    Height = 587
     Align = alRight
     TabOrder = 2
     object Memo1: TMemo
       Left = 1
-      Top = 186
+      Top = 249
       Width = 202
-      Height = 296
+      Height = 337
       Align = alClient
       Color = clCream
       Ctl3D = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
-      Font.Height = -7
+      Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       Lines.Strings = (
@@ -516,9 +798,8 @@ object frmPrincipal: TfrmPrincipal
       Left = 1
       Top = 1
       Width = 202
-      Height = 185
+      Height = 248
       Align = alTop
-      Caption = 'Panel4'
       TabOrder = 1
       object Label5: TLabel
         Left = 5
@@ -770,66 +1051,18 @@ object frmPrincipal: TfrmPrincipal
     Left = 64
     Top = 304
   end
-  object SQLConnection: TSQLConnection
-    DriverName = 'Oracle'
-    LoginPrompt = False
-    Params.Strings = (
-      'DriverUnit=Data.DBXOracle'
-      
-        'DriverPackageLoader=TDBXDynalinkDriverLoader,DBXOracleDriver200.' +
-        'bpl'
-      
-        'DriverAssemblyLoader=Borland.Data.TDBXDynalinkDriverLoader,Borla' +
-        'nd.Data.DbxCommonDriver,Version=20.0.0.0,Culture=neutral,PublicK' +
-        'eyToken=91d62ebb5b0d1b1b'
-      
-        'MetaDataPackageLoader=TDBXOracleMetaDataCommandFactory,DbxOracle' +
-        'Driver200.bpl'
-      
-        'MetaDataAssemblyLoader=Borland.Data.TDBXOracleMetaDataCommandFac' +
-        'tory,Borland.Data.DbxOracleDriver,Version=20.0.0.0,Culture=neutr' +
-        'al,PublicKeyToken=91d62ebb5b0d1b1b'
-      'GetDriverFunc=getSQLDriverORACLE'
-      'LibraryName=dbxora.dll'
-      'LibraryNameOsx=libsqlora.dylib'
-      'VendorLib=oci.dll'
-      'VendorLibWin64=oci.dll'
-      'VendorLibOsx=libociei.dylib'
-      'Database=ORCL'
-      'User_Name=INTERSOLID'
-      'Password=1nt3rs0l1d'
-      'MaxBlobSize=-1'
-      'LocaleCode=0000'
-      'IsolationLevel=ReadCommitted'
-      'RowSetSize=20'
-      'OSAuthentication=False'
-      'MultipleTransactions=False'
-      'TrimChar=False')
-    Left = 1032
-    Top = 16
-  end
-  object FDConnectionRetaguarda: TFDConnection
-    Params.Strings = (
-      'Database=PIANTA'
-      'User_Name=intersolid'
-      'Password=1nt3rs0l1d'
-      'DriverID=Ora')
-    LoginPrompt = False
-    Left = 981
-    Top = 64
-  end
   object DataSourceAdministradora: TDataSource
     DataSet = ClientDataSetAdministradora
-    Left = 101
-    Top = 208
+    Left = 213
+    Top = 232
   end
   object ClientDataSetAdministradora: TClientDataSet
     Aggregates = <>
     AggregatesActive = True
     Params = <>
     AfterScroll = ClientDataSetAdministradoraAfterScroll
-    Left = 109
-    Top = 192
+    Left = 205
+    Top = 184
     object ClientDataSetAdministradoraCNPJ: TStringField
       FieldName = 'CNPJ'
       Size = 25
@@ -875,6 +1108,14 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'VAL_TOTAL'
       Active = True
       DisplayName = ''
+    end
+  end
+  object PopupMenu: TPopupMenu
+    Left = 477
+    Top = 282
+    object Pesquisar: TMenuItem
+      Caption = 'Pesquisar'
+      OnClick = PesquisarClick
     end
   end
 end

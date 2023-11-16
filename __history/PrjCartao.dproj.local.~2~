@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/12/07 12:03:20.000.944,=C:\Users\Bruno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/12/07 12:05:17.000.132,=C:\Users\Bruno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/12/07 15:43:37.000.554,=C:\Users\Bruno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/12/07 15:55:52.000.301,=C:\Users\Bruno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/12/12 20:10:03.000.385,=C:\Users\Bruno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/12/12 20:16:22.000.230,C:\PrjCartao\UnitPrinicipal.pas=C:\Users\Bruno\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/12/12 20:16:22.000.230,C:\PrjCartao\UnitPrinicipal.dfm=C:\Users\Bruno\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2022/12/12 20:16:39.000.589,C:\PrjCartao\PrjCartao.dproj=C:\Users\Bruno\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2022/12/12 20:26:00.000.812,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2022/12/12 20:26:23.000.015,C:\PrjCartao\UnitGetNet.pas=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2022/12/12 22:32:30.000.624,=C:\PrjCartao\XPROCS.PAS</Transaction>
+    <Transaction>2022/12/19 22:40:58.000.990,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2022/12/19 22:41:06.000.927,C:\PrjCartao\Unit1.pas=C:\PrjCartao\UnitCielo.pas</Transaction>
+    <Transaction>2023/01/20 20:18:17.000.378,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/01/20 20:18:28.000.924,C:\PrjCartao\Unit1.pas=C:\PrjCartao\UnitSodexoAlimentaPass.pas</Transaction>
+    <Transaction>2023/01/31 21:23:25.000.545,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/01/31 21:25:34.000.928,C:\PrjCartao\UDmConexao.pas=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/01/31 21:25:34.000.928,C:\PrjCartao\UDmConexao.dfm=C:\PrjCartao\Unit1.dfm</Transaction>
+    <Transaction>2023/01/31 21:25:43.000.021,=C:\PrjCartao\Unit2.pas</Transaction>
+    <Transaction>2023/01/31 21:26:17.000.272,C:\PrjCartao\UDmCartaoSodexo.pas=C:\PrjCartao\Unit2.pas</Transaction>
+    <Transaction>2023/01/31 21:26:17.000.272,C:\PrjCartao\UDmCartaoSodexo.dfm=C:\PrjCartao\Unit2.dfm</Transaction>
+    <Transaction>2023/01/31 21:27:31.000.771,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/01/31 21:27:50.000.678,C:\PrjCartao\UDmRetaguarda.pas=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/01/31 21:27:50.000.678,C:\PrjCartao\UDmRetaguarda.dfm=C:\PrjCartao\Unit1.dfm</Transaction>
+    <Transaction>2023/01/31 23:50:58.000.538,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/01/31 23:51:13.000.335,C:\PrjCartao\Unit1.dfm=C:\PrjCartao\UDmGetNet.dfm</Transaction>
+    <Transaction>2023/01/31 23:51:13.000.335,C:\PrjCartao\Unit1.pas=C:\PrjCartao\UDmGetNet.pas</Transaction>
+    <Transaction>2023/03/04 10:12:04.000.131,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/03/04 10:16:34.000.944,C:\PrjCartao\Unit1.pas=C:\PrjCartao\UnitProgressoImportacao.pas</Transaction>
+    <Transaction>2023/03/04 10:16:34.000.944,C:\PrjCartao\Unit1.dfm=C:\PrjCartao\UnitProgressoImportacao.dfm</Transaction>
+    <Transaction>2023/04/22 09:37:50.000.621,=C:\Users\bruno\OneDrive\Documentos\Embarcadero\Studio\Projects\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/04/22 10:28:09.000.330,C:\Users\bruno\OneDrive\Documentos\Embarcadero\Studio\Projects\PrjCartao\Unit1.dfm=C:\Users\bruno\OneDrive\Documentos\Embarcadero\Studio\Projects\PrjCartao\UnitPesqTitCart.dfm</Transaction>
+    <Transaction>2023/04/22 10:28:09.000.330,C:\Users\bruno\OneDrive\Documentos\Embarcadero\Studio\Projects\PrjCartao\Unit1.pas=C:\Users\bruno\OneDrive\Documentos\Embarcadero\Studio\Projects\PrjCartao\UnitPesqTitCart.pas</Transaction>
+    <Transaction>2023/11/08 20:15:38.000.358,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/11/08 20:16:06.000.217,C:\PrjCartao\uDmTicket.pas=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/11/08 20:16:11.000.702,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/11/08 20:16:22.000.458,C:\PrjCartao\UnitTicket.pas=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/11/08 20:17:42.000.012,C:\PrjCartao\uDmTicket.pas=</Transaction>
+    <Transaction>2023/11/08 20:17:52.000.326,=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/11/08 20:17:58.000.873,C:\PrjCartao\uDmTciket.pas=C:\PrjCartao\Unit1.pas</Transaction>
+    <Transaction>2023/11/08 20:17:58.000.873,C:\PrjCartao\uDmTciket.dfm=C:\PrjCartao\Unit1.dfm</Transaction>
+    <Transaction>2023/11/08 20:23:07.000.833,C:\PrjCartao\uDmTciket.pas=C:\PrjCartao\uDmTicket.pas</Transaction>
+    <Transaction>2023/11/08 20:23:07.000.848,C:\PrjCartao\uDmTicket.dfm=C:\PrjCartao\uDmTciket.dfm</Transaction>
+    <Transaction>2023/11/08 20:23:07.000.848,C:\PrjCartao\uDmTicket.pas=C:\PrjCartao\uDmTciket.pas</Transaction>
+    <Transaction>2023/11/08 20:23:07.000.833,C:\PrjCartao\uDmTciket.dfm=C:\PrjCartao\uDmTicket.dfm</Transaction>
+    <Transaction>2023/11/08 20:23:37.000.399,C:\PrjCartao\uDmTciket.pas=C:\PrjCartao\uDmTicket.pas</Transaction>
+    <Transaction>2023/11/08 20:23:37.000.399,C:\PrjCartao\uDmTciket.dfm=C:\PrjCartao\uDmTicket.dfm</Transaction>
+    <Transaction>2023/11/08 20:23:37.000.415,C:\PrjCartao\uDmTicket.pas=C:\PrjCartao\uDmTciket.pas</Transaction>
+    <Transaction>2023/11/08 20:23:37.000.415,C:\PrjCartao\uDmTicket.dfm=C:\PrjCartao\uDmTciket.dfm</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="UDmCartaoSodexo.pas"/>
+    <File Path="UDmCartaoSodexo.dfm"/>
+    <File Path="UDmConexao.pas"/>
+    <File Path="UDmConexao.dfm"/>
+    <File Path="UDmGetNet.pas"/>
+    <File Path="UDmGetNet.dfm"/>
+    <File Path="UDmRetaguarda.pas"/>
+    <File Path="UDmRetaguarda.dfm"/>
+    <File Path="UnitCielo.pas"/>
+    <File Path="UnitGetNet.pas"/>
+    <File Path="UnitPrinicipal.pas"/>
+    <File Path="UnitPrinicipal.dfm"/>
+    <File Path="UnitProgressoImportacao.pas"/>
+    <File Path="UnitProgressoImportacao.dfm"/>
+    <File Path="UnitSodexoAlimentaPass.pas"/>
+    <File Path="XPROCS.PAS"/>
+    <File Path="UnitPesqTitCart.pas"/>
+    <File Path="UnitPesqTitCart.dfm"/>
+    <File Path="UnitTicket.pas"/>
+    <File Path="uDmTciket.pas"/>
+    <File Path="uDmTciket.dfm"/>
+  </ProjectSortOrder>
+</BorlandProject>

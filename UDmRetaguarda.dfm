@@ -7,48 +7,53 @@ object DmRetaguarda: TDmRetaguarda
   object qryRetaguarda: TFDQuery
     Connection = DmConexao.FDConnection
     SQL.Strings = (
-      ' '
-      '   SELECT'
-      '   '#9'TAB_LOJA.NUM_CGC, '
-      '   '#9'TAB_LOJA.DES_LOJA AS DES_LOJA, '
-      '   '#9'TAB_FLUXO.COD_PARCEIRO, '
-      '   '#9'TAB_FLUXO.DES_PARCEIRO, '
-      '   '#9'TAB_FLUXO.COD_BANDEIRA, '
-      '   '#9'TAB_BANDEIRA.DES_BANDEIRA, '
-      '   '#9'TAB_FLUXO.DTA_EMISSAO, '
-      '   '#9'TAB_FLUXO.DTA_ENTRADA, '
-      '   '#9'TAB_FLUXO.DTA_VENCIMENTO, '
-      '   '#9'TAB_FLUXO.VAL_PARCELA, '
+      'SELECT'
+      ' TAB_LOJA.NUM_CGC, '
+      ' TAB_LOJA.DES_LOJA AS DES_LOJA, '
+      ' TAB_FLUXO.COD_PARCEIRO, '
+      ' TAB_FLUXO.DES_PARCEIRO, '
+      ' TAB_FLUXO.COD_BANDEIRA, '
+      ' TAB_BANDEIRA.DES_BANDEIRA, '
+      ' TAB_FLUXO.DTA_EMISSAO, '
+      ' TAB_FLUXO.DTA_ENTRADA, '
+      ' TAB_FLUXO.DTA_VENCIMENTO, '
+      ' TAB_FLUXO.VAL_PARCELA, '
       
-        '   '#9'(TAB_FLUXO.VAL_PARCELA + (TAB_FLUXO.VAL_JUROS + TAB_FLUXO.VA' +
-        'L_CREDITO)) - (TAB_FLUXO.VAL_DESCONTO '
+        ' (TAB_FLUXO.VAL_PARCELA + (TAB_FLUXO.VAL_JUROS + TAB_FLUXO.VAL_C' +
+        'REDITO)) - (TAB_FLUXO.VAL_DESCONTO '
       
-        '   '#9' + TAB_FLUXO.VAL_DEVOLUCAO + TAB_FLUXO.VAL_RETENCAO + TAB_FL' +
-        'UXO.VAL_TAXA_ADM) + TAB_FLUXO.VAL_OUTROS AS VAL_LIQUIDO, '
-      '   '#9'TAB_FLUXO.COD_ADMINISTRADORA_TEF, '
-      '   '#9'TAB_FLUXO.NUM_BIN_TEF, '
-      '   '#9'TAB_FLUXO.NUM_NSU_HOST_TEF, '
-      '   '#9'TAB_FLUXO.COD_TRANSACAO_TEF, '
-      '   '#9'TAB_FLUXO.COD_INSTITUICAO_TEF, '
-      '   '#9'TAB_FLUXO.COD_BANDEIRA_TEF, '
-      '   '#9'TAB_FLUXO.NUM_NSU_SITEF, '
-      '   '#9'TAB_FLUXO.COD_AUTORIZACAO_TEF, '
-      '   '#9'TAB_FLUXO.COD_ESTABELECIMENTO_TEF, '
-      '   '#9'TAB_FLUXO.VAL_TOTAL_NF, '
-      '   '#9'TAB_FLUXO.NUM_PARCELA, '
-      '   '#9'TAB_FLUXO.QTD_PARCELA, '
-      '        TAB_FLUXO.COD_CHAVE, '
-      '        TAB_FLUXO.NUM_BORDERO'
-      ''
-      '   FROM TAB_FLUXO '
-      '   INNER JOIN TAB_BANDEIRA ON '
-      '    TAB_FLUXO.COD_BANDEIRA = TAB_BANDEIRA.COD_BANDEIRA '
-      '   INNER JOIN TAB_LOJA ON '
-      '    TAB_FLUXO.COD_LOJA = TAB_LOJA.COD_LOJA '
-      '   WHERE '
-      '   TAB_LOJA.NUM_CGC = :NUM_CGC '
-      '   AND TAB_FLUXO.DTA_EMISSAO = :DTA_EMISSAO '
-      '   AND TAB_FLUXO.COD_AUTORIZACAO_TEF = :COD_AUTORIZACAO_TEF  ')
+        '  + TAB_FLUXO.VAL_DEVOLUCAO + TAB_FLUXO.VAL_RETENCAO + TAB_FLUXO' +
+        '.VAL_TAXA_ADM) + TAB_FLUXO.VAL_OUTROS AS VAL_LIQUIDO, '
+      ' TAB_FLUXO.COD_ADMINISTRADORA_TEF, '
+      ' TAB_FLUXO.NUM_BIN_TEF, '
+      ' TAB_FLUXO.NUM_NSU_HOST_TEF, '
+      ' TAB_FLUXO.COD_TRANSACAO_TEF, '
+      ' TAB_FLUXO.COD_INSTITUICAO_TEF, '
+      ' TAB_FLUXO.COD_BANDEIRA_TEF, '
+      ' TAB_FLUXO.NUM_NSU_SITEF, '
+      ' TAB_FLUXO.COD_AUTORIZACAO_TEF, '
+      ' TAB_FLUXO.COD_ESTABELECIMENTO_TEF, '
+      ' TAB_FLUXO.VAL_TOTAL_NF, '
+      ' TAB_FLUXO.NUM_PARCELA, '
+      ' TAB_FLUXO.QTD_PARCELA,  '
+      ' TAB_FLUXO.COD_CHAVE, '
+      ' TAB_FLUXO.NUM_BORDERO,'
+      ' CASE'
+      
+        '   WHEN TAB_FLUXO.DTA_QUITADA IS NOT NULL AND TAB_FLUXO.FLG_QUIT' +
+        'ADO = '#39'S'#39' THEN '#39'S'#39
+      ' ELSE '#39'N'#39
+      ' END AS FLG_QUITADO'
+      'FROM TAB_FLUXO '
+      ' INNER JOIN TAB_BANDEIRA ON '
+      ' TAB_FLUXO.COD_BANDEIRA = TAB_BANDEIRA.COD_BANDEIRA '
+      ' INNER JOIN TAB_LOJA ON '
+      ' TAB_FLUXO.COD_LOJA = TAB_LOJA.COD_LOJA '
+      ' WHERE '
+      ' TAB_LOJA.NUM_CGC = :NUM_CGC '
+      ' AND TAB_FLUXO.DTA_EMISSAO = :DTA_EMISSAO '
+      ' AND TAB_FLUXO.COD_AUTORIZACAO_TEF = :COD_AUTORIZACAO_TEF'
+      ' AND TAB_FLUXO.VAL_PARCELA = :VAL_PARCELA  ')
     Left = 32
     Top = 8
     ParamData = <
@@ -67,6 +72,12 @@ object DmRetaguarda: TDmRetaguarda
       item
         Name = 'COD_AUTORIZACAO_TEF'
         DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'VAL_PARCELA'
+        DataType = ftFloat
         ParamType = ptInput
         Value = Null
       end>
@@ -208,15 +219,21 @@ object DmRetaguarda: TDmRetaguarda
       Precision = 10
       Size = 0
     end
+    object qryRetaguardaFLG_QUITADO: TStringField
+      FieldName = 'FLG_QUITADO'
+    end
   end
   object qryAtualizaTitulo: TFDQuery
     Connection = DmConexao.FDConnection
+    Transaction = DmConexao.FDTransaction
+    UpdateTransaction = DmConexao.FDTransaction
     SQL.Strings = (
       'update tab_fluxo '
       'set num_bordero = :num_bordero '
       'where '
-      'cod_chave = :cod_chave')
-    Left = 31
+      'cod_chave = :cod_chave'
+      'and flg_quitado = '#39'N'#39)
+    Left = 55
     Top = 70
     ParamData = <
       item
@@ -241,8 +258,8 @@ object DmRetaguarda: TDmRetaguarda
       '  TAB_PROXIMO_CODIGO'
       'WHERE '
       '  CAMPO = '#39'COD_BORDERO'#39' ')
-    Left = 36
-    Top = 111
+    Left = 52
+    Top = 119
     object qryBorderoPROXIMO_VALOR: TBCDField
       FieldName = 'PROXIMO_VALOR'
       Origin = 'PROXIMO_VALOR'
@@ -371,6 +388,15 @@ object DmRetaguarda: TDmRetaguarda
     object ClientDataSetCartaoQTD_PARCELA: TIntegerField
       FieldName = 'QTD_PARCELA'
     end
+    object ClientDataSetCartaoCOD_INTERNO: TIntegerField
+      FieldName = 'COD_INTERNO'
+    end
+    object ClientDataSetCartaoFLG_ENCONTRADO: TBooleanField
+      FieldName = 'FLG_ENCONTRADO'
+    end
+    object ClientDataSetCartaoFLG_QUITADO: TStringField
+      FieldName = 'FLG_QUITADO'
+    end
     object ClientDataSetCartaoQtdRegErp: TAggregateField
       FieldName = 'QtdRegErp'
       Active = True
@@ -387,13 +413,15 @@ object DmRetaguarda: TDmRetaguarda
   end
   object qryAtualizaNumBordero: TFDQuery
     Connection = DmConexao.FDConnection
+    Transaction = DmConexao.FDTransaction
+    UpdateTransaction = DmConexao.FDTransaction
     SQL.Strings = (
       'UPDATE TAB_PROXIMO_CODIGO'
       'SET PROXIMO_VALOR = PROXIMO_VALOR + 1 '
       'WHERE '
       'CAMPO = '#39'COD_BORDERO'#39)
-    Left = 48
-    Top = 160
+    Left = 56
+    Top = 176
   end
   object ClientDataSetAdmBand: TClientDataSet
     Aggregates = <>
@@ -412,5 +440,233 @@ object DmRetaguarda: TDmRetaguarda
     object ClientDataSetAdmBandDATA_VENDA: TDateField
       FieldName = 'DATA_VENDA'
     end
+    object ClientDataSetAdmBandDES_ADMINISTRADORA: TStringField
+      FieldName = 'DES_ADMINISTRADORA'
+      Size = 50
+    end
+    object ClientDataSetAdmBandDES_BANDEIRA: TStringField
+      FieldName = 'DES_BANDEIRA'
+      Size = 50
+    end
+  end
+  object qryRetaguarda2: TFDQuery
+    Connection = DmConexao.FDConnection
+    SQL.Strings = (
+      ' '
+      '   SELECT'
+      '   '#9'TAB_LOJA.NUM_CGC, '
+      '   '#9'TAB_LOJA.DES_LOJA AS DES_LOJA, '
+      '   '#9'TAB_FLUXO.COD_PARCEIRO, '
+      '   '#9'TAB_FLUXO.DES_PARCEIRO, '
+      '   '#9'TAB_FLUXO.COD_BANDEIRA, '
+      '   '#9'TAB_BANDEIRA.DES_BANDEIRA, '
+      '   '#9'TAB_FLUXO.DTA_EMISSAO, '
+      '   '#9'TAB_FLUXO.DTA_ENTRADA, '
+      '   '#9'TAB_FLUXO.DTA_VENCIMENTO, '
+      '   '#9'TAB_FLUXO.VAL_PARCELA, '
+      
+        '   '#9'(TAB_FLUXO.VAL_PARCELA + (TAB_FLUXO.VAL_JUROS + TAB_FLUXO.VA' +
+        'L_CREDITO)) - (TAB_FLUXO.VAL_DESCONTO '
+      
+        '   '#9' + TAB_FLUXO.VAL_DEVOLUCAO + TAB_FLUXO.VAL_RETENCAO + TAB_FL' +
+        'UXO.VAL_TAXA_ADM) + TAB_FLUXO.VAL_OUTROS AS VAL_LIQUIDO, '
+      '   '#9'TAB_FLUXO.COD_ADMINISTRADORA_TEF, '
+      '   '#9'TAB_FLUXO.NUM_BIN_TEF, '
+      '   '#9'TAB_FLUXO.NUM_NSU_HOST_TEF, '
+      '   '#9'TAB_FLUXO.COD_TRANSACAO_TEF, '
+      '   '#9'TAB_FLUXO.COD_INSTITUICAO_TEF, '
+      '   '#9'TAB_FLUXO.COD_BANDEIRA_TEF, '
+      '   '#9'TAB_FLUXO.NUM_NSU_SITEF, '
+      '   '#9'TAB_FLUXO.COD_AUTORIZACAO_TEF, '
+      '   '#9'TAB_FLUXO.COD_ESTABELECIMENTO_TEF, '
+      '   '#9'TAB_FLUXO.VAL_TOTAL_NF, '
+      '   '#9'TAB_FLUXO.NUM_PARCELA, '
+      '   '#9'TAB_FLUXO.QTD_PARCELA, '
+      '        TAB_FLUXO.COD_CHAVE, '
+      '        TAB_FLUXO.NUM_BORDERO,'
+      ' CASE'
+      
+        '        WHEN TAB_FLUXO.DTA_QUITADA IS NOT NULL AND TAB_FLUXO.FLG' +
+        '_QUITADO = '#39'S'#39' THEN '#39'S'#39
+      '        ELSE '#39'N'#39
+      '    END AS FLG_QUITADO'
+      ''
+      '   FROM TAB_FLUXO '
+      '   INNER JOIN TAB_BANDEIRA ON '
+      '    TAB_FLUXO.COD_BANDEIRA = TAB_BANDEIRA.COD_BANDEIRA '
+      '   INNER JOIN TAB_LOJA ON '
+      '    TAB_FLUXO.COD_LOJA = TAB_LOJA.COD_LOJA '
+      '   WHERE '
+      '   TAB_LOJA.NUM_CGC = :NUM_CGC '
+      '   AND TAB_FLUXO.DTA_EMISSAO = :DTA_EMISSAO '
+      '   AND TAB_FLUXO.VAL_PARCELA = :VAL_PARCELA')
+    Left = 72
+    Top = 16
+    ParamData = <
+      item
+        Name = 'NUM_CGC'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DTA_EMISSAO'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'VAL_PARCELA'
+        DataType = ftFloat
+        ParamType = ptInput
+        Value = Null
+      end>
+    object StringField3: TStringField
+      FieldName = 'NUM_CGC'
+      Origin = 'NUM_CGC'
+      Size = 19
+    end
+    object StringField10: TStringField
+      FieldName = 'DES_LOJA'
+      Origin = 'DES_LOJA'
+      Required = True
+      Size = 50
+    end
+    object BCDField1: TBCDField
+      FieldName = 'COD_PARCEIRO'
+      Origin = 'COD_PARCEIRO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Precision = 10
+      Size = 0
+    end
+    object StringField11: TStringField
+      FieldName = 'DES_PARCEIRO'
+      Origin = 'DES_PARCEIRO'
+      Size = 50
+    end
+    object BCDField7: TBCDField
+      FieldName = 'COD_BANDEIRA'
+      Origin = 'COD_BANDEIRA'
+      Precision = 10
+      Size = 0
+    end
+    object StringField12: TStringField
+      FieldName = 'DES_BANDEIRA'
+      Origin = 'DES_BANDEIRA'
+      Required = True
+      Size = 50
+    end
+    object DateTimeField4: TDateTimeField
+      FieldName = 'DTA_EMISSAO'
+      Origin = 'DTA_EMISSAO'
+    end
+    object DateTimeField5: TDateTimeField
+      FieldName = 'DTA_ENTRADA'
+      Origin = 'DTA_ENTRADA'
+    end
+    object DateTimeField6: TDateTimeField
+      FieldName = 'DTA_VENCIMENTO'
+      Origin = 'DTA_VENCIMENTO'
+    end
+    object FloatField1: TFloatField
+      FieldName = 'VAL_PARCELA'
+      Origin = 'VAL_PARCELA'
+      Required = True
+    end
+    object FloatField3: TFloatField
+      FieldName = 'VAL_LIQUIDO'
+      Origin = 'VAL_LIQUIDO'
+    end
+    object StringField13: TStringField
+      FieldName = 'COD_ADMINISTRADORA_TEF'
+      Origin = 'COD_ADMINISTRADORA_TEF'
+    end
+    object BCDField8: TBCDField
+      FieldName = 'NUM_BIN_TEF'
+      Origin = 'NUM_BIN_TEF'
+      Precision = 10
+      Size = 0
+    end
+    object StringField14: TStringField
+      FieldName = 'NUM_NSU_HOST_TEF'
+      Origin = 'NUM_NSU_HOST_TEF'
+      Size = 15
+    end
+    object BCDField9: TBCDField
+      FieldName = 'COD_TRANSACAO_TEF'
+      Origin = 'COD_TRANSACAO_TEF'
+      Precision = 10
+      Size = 0
+    end
+    object StringField15: TStringField
+      FieldName = 'COD_INSTITUICAO_TEF'
+      Origin = 'COD_INSTITUICAO_TEF'
+      Size = 5
+    end
+    object BCDField10: TBCDField
+      FieldName = 'COD_BANDEIRA_TEF'
+      Origin = 'COD_BANDEIRA_TEF'
+      Precision = 10
+      Size = 0
+    end
+    object StringField16: TStringField
+      FieldName = 'NUM_NSU_SITEF'
+      Origin = 'NUM_NSU_SITEF'
+      Size = 15
+    end
+    object BCDField11: TBCDField
+      FieldName = 'COD_AUTORIZACAO_TEF'
+      Origin = 'COD_AUTORIZACAO_TEF'
+      Precision = 10
+      Size = 0
+    end
+    object StringField17: TStringField
+      FieldName = 'COD_ESTABELECIMENTO_TEF'
+      Origin = 'COD_ESTABELECIMENTO_TEF'
+      Size = 50
+    end
+    object FloatField4: TFloatField
+      FieldName = 'VAL_TOTAL_NF'
+      Origin = 'VAL_TOTAL_NF'
+      Required = True
+    end
+    object BCDField12: TBCDField
+      FieldName = 'NUM_PARCELA'
+      Origin = 'NUM_PARCELA'
+      Required = True
+      Precision = 5
+      Size = 0
+    end
+    object BCDField13: TBCDField
+      FieldName = 'QTD_PARCELA'
+      Origin = 'QTD_PARCELA'
+      Required = True
+      Precision = 5
+      Size = 0
+    end
+    object BCDField14: TBCDField
+      FieldName = 'COD_CHAVE'
+      Origin = 'COD_CHAVE'
+      Required = True
+      Precision = 10
+      Size = 0
+    end
+    object BCDField15: TBCDField
+      FieldName = 'NUM_BORDERO'
+      Origin = 'NUM_BORDERO'
+      Required = True
+      Precision = 10
+      Size = 0
+    end
+    object qryRetaguarda2FLG_QUITADO: TStringField
+      FieldName = 'FLG_QUITADO'
+      Size = 1
+    end
+  end
+  object DataSourceCartaoBandeira: TDataSource
+    DataSet = ClientDataSetAdmBand
+    Left = 349
+    Top = 58
   end
 end

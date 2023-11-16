@@ -11,7 +11,10 @@ uses
   UDmCartaoSodexo in 'UDmCartaoSodexo.pas' {DmCartaoSodexo: TDataModule},
   UDmRetaguarda in 'UDmRetaguarda.pas' {DmRetaguarda: TDataModule},
   UDmGetNet in 'UDmGetNet.pas' {DmGetNet: TDataModule},
-  UnitProgressoImportacao in 'UnitProgressoImportacao.pas' {FrmProgressoImportacao};
+  UnitProgressoImportacao in 'UnitProgressoImportacao.pas' {FrmProgressoImportacao},
+  UnitPesqTitCart in 'UnitPesqTitCart.pas' {FormPesTitCart},
+  UnitTicket in 'UnitTicket.pas',
+  uDmTciket in 'uDmTciket.pas' {DMTicket: TDataModule};
 
 {$R *.res}
 
@@ -20,6 +23,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TDmConexao, DmConexao);
-  Application.CreateForm(TFrmProgressoImportacao, FrmProgressoImportacao);
   Application.Run;
 end.

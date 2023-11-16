@@ -26,13 +26,16 @@ type
     ClientDataSetGetNetNUMERO_CV: TStringField;
     ClientDataSetGetNetTERMINAL: TStringField;
     ClientDataSetGetNetDATA_VENDA: TStringField;
-    ClientDataSetGetNetVALOR_ORIGINAL: TStringField;
-    ClientDataSetGetNetVALOR_BRUTO: TStringField;
-    ClientDataSetGetNetDESCONTO: TStringField;
-    ClientDataSetGetNetLIQUIDO: TStringField;
     DataSourceGetNet: TDataSource;
-    ClientDataSetGetNetVALOR_TOTAL_BRUTO: TAggregateField;
     ClientDataSetGetNetQTDREGARQ: TAggregateField;
+    ClientDataSetGetNetFLG_ENCONTRADO: TBooleanField;
+    ClientDataSetGetNetvalLiquido: TFloatField;
+    ClientDataSetGetNetVALTOTAL: TAggregateField;
+    ClientDataSetGetNetVALOR_ORIGINAL: TFloatField;
+    ClientDataSetGetNetVALOR_BRUTO: TFloatField;
+    ClientDataSetGetNetDESCONTO: TFloatField;
+    ClientDataSetGetNetLIQUIDO: TFloatField;
+    ClientDataSetGetNetCOD_INTERNO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
