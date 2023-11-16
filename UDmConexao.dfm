@@ -7,7 +7,7 @@ object DmConexao: TDmConexao
     Params.Strings = (
       'User_Name=intersolid'
       'Password=1nt3rs0l1d'
-      'Database=ORCL'
+      'Database=PIANTA'
       'DriverID=Ora')
     LoginPrompt = False
     UpdateTransaction = FDTransaction
