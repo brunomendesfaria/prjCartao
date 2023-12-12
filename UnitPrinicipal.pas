@@ -3,7 +3,7 @@ unit UnitPrinicipal;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Data.DBXOracle, Data.FMTBcd,
   Datasnap.Provider, Data.SqlExpr, Vcl.Grids, Vcl.DBGrids,
   Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, xProcs, UnitGetNet, UnitCielo,
@@ -12,7 +12,8 @@ uses
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.Oracle, FireDAC.Phys.OracleDef,
   FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  UnitSodexoAlimentaPass, Vcl.Mask, Vcl.DBCtrls, Vcl.Menus, UnitTicket;
+  UnitSodexoAlimentaPass, Vcl.Mask, Vcl.DBCtrls, Vcl.Menus, UnitTicket,
+  System.Classes;
 
 type
   TfrmPrincipal = class(TForm)
@@ -105,6 +106,9 @@ type
     DtaPagtoTicket: TDateTimePicker;
     DataPagtoTicket: TLabel;
     DBGridTicket: TDBGrid;
+    TabSheetTicketValores: TTabSheet;
+    DBGTicketValores: TDBGrid;
+    DBGridTciketTaxaSint: TDBGrid;
     procedure Button1Click(Sender: TObject);
     procedure ButtonImportarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -135,6 +139,7 @@ type
     SodexoAlimentaPass: TSodexoAlimentaPass;
     procedure fechaClient;
     procedure buscaTitulos(aCli: TClientDataSet);
+var
   public
     { Public declarations }
   end;
@@ -153,7 +158,7 @@ uses UDmRetaguarda, UDmGetNet, UnitProgressoImportacao, UnitPesqTitCart,
 
 procedure TfrmPrincipal.BtnGeraBoderoClick(Sender: TObject);
 begin
-  if not DmGetNet.ClientDataSetGetNet.IsEmpty then
+   if not DmGetNet.ClientDataSetGetNet.IsEmpty then
   begin
     if DmRetaguarda.ClientDataSetAdmBand.RecordCount  = 1 then
       GetNet.GeraNumBorderoUnico(Memo1);
@@ -185,7 +190,7 @@ begin
 
         if not(qryRetaguarda.IsEmpty) then
         begin
-          ClientDataSetCartao.Edit;
+          ClientDataSetCartao.Append;
           ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= qryRetaguarda.FieldByName('NUM_CGC').AsString;
           ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= qryRetaguarda.FieldByName('DES_LOJA').AsString;
           ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString:= qryRetaguarda.FieldByName('DES_PARCEIRO').AsString;
@@ -210,8 +215,8 @@ begin
           ClientDataSetCartao.FieldByName('QTD_PARCELA').AsInteger:= qryRetaguarda.FieldByName('QTD_PARCELA').AsInteger;
           ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger:= qryRetaguarda.FieldByName('COD_PARCEIRO').AsInteger;
           ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger:= qryRetaguarda.FieldByName('COD_CHAVE').AsInteger;
-          ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
-          ClientDataSetCartao.Append;
+          ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  0;
+          ClientDataSetCartao.Post;
         end;
 
         ProgressBar2.Position:=aCli.RecNo;
@@ -235,16 +240,25 @@ end;
 
 procedure TfrmPrincipal.ButtonImportarClick(Sender: TObject);
 begin
+
   case RadioGroup.ItemIndex of
     1:
     begin
       if ComboBoxAdm.ItemIndex = -1 then
       begin
         MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
+        ComboBoxAdm.SetFocus;
         exit;
       end
       else
       begin
+        if RadioGroup.ItemIndex = -1 then
+        begin
+          MessageDlg('Seleciona o tipo do arquivo Venda ou Pagamento', MtWarning, [mbOk], 0);
+          RadioGroup.SetFocus;
+          exit;
+        end;
+
         try
           case ComboBoxAdm.ItemIndex of
             0:   //GetNet
@@ -270,22 +284,18 @@ begin
                 fechaClient;
                 CliTicket.Open;
                 CliTicket.EmptyDataSet;
-//                DBEditQtdRegArq.DataField:= 'QtdReg';
-//                DBEditQtdRegArq.DataSource:= DMTicket.DSTicket;
+                CliTicketValores.Open;
+                CliTicketValores.EmptyDataSet;
                 Ticket.importaArquivo(CliTicket,OpenDialog1.FileName,ProgressBar1);
                 Ticket.BuscaTitulos(CliTicket, ProgressBar2);
                 CliTicket.Close;
                 CliTicket.Open;
+                CliTicketValores.Close;
+                CliTicketValores.Open;
                 alimentaClientDataSetAdmBand;
                 BtnGeraBodero.Enabled:=True;
-                //GetNet.BuscaTitulos(ClientDataSetGetNet,ProgressBar2);
-                //ClientDataSetCartao.Open;
-                //alimentaClientDataSetAdmBand;
-                //BtnGeraBodero.Enabled:=True;
               end;
-
             end;
-
             2:
             begin
               DBGridCielo.BringToFront;
@@ -309,14 +319,10 @@ begin
                 ClientDataSetCartao.Open;
                 qryAtualizaNumBordero.ExecSQL;
                 DmRetaguarda.ClientDataSetCartao.IndexFieldNames:= 'FLG_ENCONTRADO';
-
               end;
-
             end;
           end;
-
         finally
-
         end;
       end;
     end;
@@ -341,18 +347,20 @@ end;
 
 procedure TfrmPrincipal.ComboBoxAdmChange(Sender: TObject);
 begin
+  TabSheetTicketValores.TabVisible:= False;
+
   if ComboBoxAdm.Items[ComboBoxAdm.ItemIndex] = 'GetNet' then
      GetNet := TGetNet.Create;
 
   DataPagtoTicket.Visible:=False;
   DtaPagtoTicket.Visible:=False;
+
   if ComboBoxAdm.Items[ComboBoxAdm.ItemIndex] = 'Ticket' then
   begin
     DataPagtoTicket.Visible:=True;
     DtaPagtoTicket.Visible:=True;
+    TabSheetTicketValores.TabVisible:= True;
   end;
-
-
 end;
 
 procedure TfrmPrincipal.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -485,20 +493,24 @@ begin
       CliTicket.EmptyDataSet;
       CliTicket.Close;
    end;
+   if CliTicketValores.Active then
+   begin
+      CliTicketValores.EmptyDataSet;
+      CliTicketValores.Close;
+   end;
    ProgressBar1.Min:=0;
    ProgressBar1.Max:=0;
    ProgressBar2.Min:=0;
    ProgressBar2.Max:=0;
    ProgressBar3.Min:=0;
    ProgressBar3.Max:=0;
-
  end;
-
  ClientDataSetAdministradora.Close;
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
+ TabSheetTicketValores.TabVisible:=False;
  DmRetaguarda:= TDmRetaguarda.Create(Self);
  ClientDataSetAdministradora.CreateDataSet;
  dmGetNet:= TDmGetNet.Create(Self);

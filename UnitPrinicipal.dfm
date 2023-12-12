@@ -68,7 +68,7 @@ object frmPrincipal: TfrmPrincipal
       OnClick = Button1Click
     end
     object ComboBoxAdm: TComboBox
-      Left = 8
+      Left = 5
       Top = 13
       Width = 145
       Height = 21
@@ -202,7 +202,7 @@ object frmPrincipal: TfrmPrincipal
       Top = 1
       Width = 1304
       Height = 585
-      ActivePage = TabSheet3
+      ActivePage = TabSheet1
       Align = alClient
       TabOrder = 0
       OnChange = PageControlCartaoChange
@@ -499,12 +499,24 @@ object frmPrincipal: TfrmPrincipal
           Columns = <
             item
               Expanded = False
-              FieldName = 'FLG_ENCONTRADO'
+              FieldName = 'NUMERO'
               Visible = True
             end
             item
               Expanded = False
-              FieldName = 'PRODUTO'
+              FieldName = 'DATA_CORTE'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA_CREDITO_DEBITO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'COD_ESTABELECIMENTO'
               Width = 64
               Visible = True
             end
@@ -516,7 +528,31 @@ object frmPrincipal: TfrmPrincipal
             end
             item
               Expanded = False
-              FieldName = 'COD_INTERNO'
+              FieldName = 'DATA_POSTAGEM'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NUMERO_DOCTO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'TIPO_TRANSACAO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DESCRICAO_LANCAMENTO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NUMERO_CARTAO'
               Width = 64
               Visible = True
             end
@@ -524,6 +560,23 @@ object frmPrincipal: TfrmPrincipal
               Expanded = False
               FieldName = 'VALOR'
               Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FLG_ENCONTRADO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'COD_INTERNO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VAL_REP'
               Visible = True
             end>
         end
@@ -742,26 +795,95 @@ object frmPrincipal: TfrmPrincipal
             item
               Expanded = False
               FieldName = 'DES_ADMINISTRADORA'
+              Width = 64
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'COD_BANDEIRA'
+              Width = 64
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'DES_BANDEIRA'
+              Width = 64
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'DATA_VENCIMENTO'
+              Width = 64
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'DATA_VENDA'
+              Width = 64
+              Visible = True
+            end>
+        end
+      end
+      object TabSheetTicketValores: TTabSheet
+        Caption = 'Ticket Valores por Data'
+        ImageIndex = 3
+        object DBGTicketValores: TDBGrid
+          Left = 0
+          Top = 0
+          Width = 1296
+          Height = 557
+          Align = alClient
+          DataSource = DMTicket.DSTicketValores
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'DESCRICAO_EVENTO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA'
+              Visible = True
+            end>
+        end
+        object DBGridTciketTaxaSint: TDBGrid
+          Left = 536
+          Top = 3
+          Width = 465
+          Height = 352
+          DataSource = DMTicket.DSTicketTaxaSint
+          TabOrder = 1
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Visible = False
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'DESCRICAO_EVENTO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA'
               Visible = True
             end>
         end
