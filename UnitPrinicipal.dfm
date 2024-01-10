@@ -767,6 +767,11 @@ object frmPrincipal: TfrmPrincipal
               FieldName = 'FLG_QUITADO'
               Width = 64
               Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FLG_UPDATE'
+              Visible = True
             end>
         end
       end

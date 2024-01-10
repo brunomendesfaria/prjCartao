@@ -158,7 +158,7 @@ uses UDmRetaguarda, UDmGetNet, UnitProgressoImportacao, UnitPesqTitCart,
 
 procedure TfrmPrincipal.BtnGeraBoderoClick(Sender: TObject);
 begin
-   if not DmGetNet.ClientDataSetGetNet.IsEmpty then
+  if not DmGetNet.ClientDataSetGetNet.IsEmpty then
   begin
     if DmRetaguarda.ClientDataSetAdmBand.RecordCount  = 1 then
       GetNet.GeraNumBorderoUnico(Memo1);
@@ -190,6 +190,9 @@ begin
 
         if not(qryRetaguarda.IsEmpty) then
         begin
+
+
+
           ClientDataSetCartao.Append;
           ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= qryRetaguarda.FieldByName('NUM_CGC').AsString;
           ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= qryRetaguarda.FieldByName('DES_LOJA').AsString;

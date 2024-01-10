@@ -397,9 +397,6 @@ object DmRetaguarda: TDmRetaguarda
     object ClientDataSetCartaoFLG_QUITADO: TStringField
       FieldName = 'FLG_QUITADO'
     end
-    object ClientDataSetCartaoFLG_UPDATE: TBooleanField
-      FieldName = 'FLG_UPDATE'
-    end
     object ClientDataSetCartaoQtdRegErp: TAggregateField
       FieldName = 'QtdRegErp'
       Active = True

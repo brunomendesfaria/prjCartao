@@ -110,6 +110,7 @@ type
     DataSourceCartaoBandeira: TDataSource;
     ClientDataSetAdmBandDES_ADMINISTRADORA: TStringField;
     ClientDataSetAdmBandDES_BANDEIRA: TStringField;
+    ClientDataSetCartaoFLG_UPDATE: TBooleanField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private

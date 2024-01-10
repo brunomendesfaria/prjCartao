@@ -49,7 +49,6 @@ begin
         if not(qryRetaguarda.IsEmpty) then
         begin
           ClientDataSetCartao.Append;
-          ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= False;
           ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= qryRetaguarda.FieldByName('NUM_CGC').AsString;
           ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= qryRetaguarda.FieldByName('DES_LOJA').AsString;
           ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString:= qryRetaguarda.FieldByName('DES_PARCEIRO').AsString;
@@ -57,25 +56,9 @@ begin
           ClientDataSetCartao.FieldByName('DES_BANDEIRA').AsString:=  qryRetaguarda.FieldByName('DES_BANDEIRA').AsString;
           ClientDataSetCartao.FieldByName('DTA_EMISSAO').AsDateTime:= qryRetaguarda.FieldByName('DTA_EMISSAO').AsDateTime;
           ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime:= qryRetaguarda.FieldByName('DTA_ENTRADA').AsDateTime;
-
-
           ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= qryRetaguarda.FieldByName('DTA_VENCIMENTO').AsDateTime;
-          if acli.FieldByName('VENCIMENTO').AsDateTime <>  qryRetaguarda.FieldByName('DTA_VENCIMENTO').AsDateTime then
-          begin
-            ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= acli.FieldByName('VENCIMENTO').AsDateTime;
-            ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
-          end;
-
-
-          ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda.FieldByName('VAL_LIQUIDO').AsFloat;
-          if qryRetaguardaVAL_LIQUIDO.AsFloat <> aCli.FieldByName('LIQUIDO').AsFloat then
-          begin
-            ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= aCli.FieldByName('LIQUIDO').AsFloat;
-            ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
-          end;
-
-
           ClientDataSetCartao.FieldByName('VAL_PARCELA').AsFloat:= qryRetaguarda.FieldByName('VAL_PARCELA').AsFloat;
+          ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda.FieldByName('VAL_LIQUIDO').AsFloat;
           ClientDataSetCartao.FieldByName('COD_ADMINISTRADORA_TEF').AsString:= qryRetaguarda.FieldByName('COD_ADMINISTRADORA_TEF').AsString;
           ClientDataSetCartao.FieldByName('NUM_BIN_TEF').AsString:= qryRetaguarda.FieldByName('NUM_BIN_TEF').AsString;
           ClientDataSetCartao.FieldByName('NUM_NSU_HOST_TEF').AsString:= qryRetaguarda.FieldByName('NUM_NSU_HOST_TEF').AsString;
@@ -116,7 +99,6 @@ begin
                ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger]),[])) then
                begin
                 ClientDataSetCartao.Append;
-                ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= False;
                 ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= qryRetaguarda2.FieldByName('NUM_CGC').AsString;
                 ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= qryRetaguarda2.FieldByName('DES_LOJA').AsString;
                 ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString:= qryRetaguarda2.FieldByName('DES_PARCEIRO').AsString;
@@ -124,24 +106,9 @@ begin
                 ClientDataSetCartao.FieldByName('DES_BANDEIRA').AsString:=  qryRetaguarda2.FieldByName('DES_BANDEIRA').AsString;
                 ClientDataSetCartao.FieldByName('DTA_EMISSAO').AsDateTime:= qryRetaguarda2.FieldByName('DTA_EMISSAO').AsDateTime;
                 ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime:= qryRetaguarda2.FieldByName('DTA_ENTRADA').AsDateTime;
-
-
                 ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= qryRetaguarda2.FieldByName('DTA_VENCIMENTO').AsDateTime;
-                if acli.FieldByName('VENCIMENTO').AsDateTime <>  qryRetaguarda2.FieldByName('DTA_VENCIMENTO').AsDateTime then
-                begin
-                  ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= acli.FieldByName('VENCIMENTO').AsDateTime;
-                  ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
-                end;
-
-
-                ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda2.FieldByName('VAL_LIQUIDO').AsFloat;
-                if qryRetaguarda2.FieldByName('VAL_LIQUIDO').AsFloat <> aCli.FieldByName('valliquido').AsFloat then
-                begin
-                  ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= aCli.FieldByName('LIQUIDO').AsFloat;
-                  ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
-                end;
-
                 ClientDataSetCartao.FieldByName('VAL_PARCELA').AsFloat:= qryRetaguarda2.FieldByName('VAL_PARCELA').AsFloat;
+                ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda2.FieldByName('VAL_LIQUIDO').AsFloat;
                 ClientDataSetCartao.FieldByName('COD_ADMINISTRADORA_TEF').AsString:= qryRetaguarda2.FieldByName('COD_ADMINISTRADORA_TEF').AsString;
                 ClientDataSetCartao.FieldByName('NUM_BIN_TEF').AsString:= qryRetaguarda2.FieldByName('NUM_BIN_TEF').AsString;
                 ClientDataSetCartao.FieldByName('NUM_NSU_HOST_TEF').AsString:= qryRetaguarda2.FieldByName('NUM_NSU_HOST_TEF').AsString;
@@ -195,7 +162,6 @@ begin
             if qryRetaguarda2.RecordCount = 1 then
             begin
               ClientDataSetCartao.Append;
-              ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= False;
               ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= qryRetaguarda2.FieldByName('NUM_CGC').AsString;
               ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= qryRetaguarda2.FieldByName('DES_LOJA').AsString;
               ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString:= qryRetaguarda2.FieldByName('DES_PARCEIRO').AsString;
@@ -203,23 +169,9 @@ begin
               ClientDataSetCartao.FieldByName('DES_BANDEIRA').AsString:=  qryRetaguarda2.FieldByName('DES_BANDEIRA').AsString;
               ClientDataSetCartao.FieldByName('DTA_EMISSAO').AsDateTime:= qryRetaguarda2.FieldByName('DTA_EMISSAO').AsDateTime;
               ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime:= qryRetaguarda2.FieldByName('DTA_ENTRADA').AsDateTime;
-
-
               ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= qryRetaguarda2.FieldByName('DTA_VENCIMENTO').AsDateTime;
-              if acli.FieldByName('VENCIMENTO').AsDateTime <>  qryRetaguarda2.FieldByName('DTA_VENCIMENTO').AsDateTime then
-              begin
-                ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= acli.FieldByName('VENCIMENTO').AsDateTime;
-                ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
-              end;
-
-              ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda2.FieldByName('VAL_LIQUIDO').AsFloat;
-              if qryRetaguarda2.FieldByName('VAL_LIQUIDO').AsFloat <> aCli.FieldByName('valliquido').AsFloat then
-              begin
-                ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= aCli.FieldByName('LIQUIDO').AsFloat;
-                ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
-              end;
-
               ClientDataSetCartao.FieldByName('VAL_PARCELA').AsFloat:= qryRetaguarda2.FieldByName('VAL_PARCELA').AsFloat;
+              ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda2.FieldByName('VAL_LIQUIDO').AsFloat;
               ClientDataSetCartao.FieldByName('COD_ADMINISTRADORA_TEF').AsString:= qryRetaguarda2.FieldByName('COD_ADMINISTRADORA_TEF').AsString;
               ClientDataSetCartao.FieldByName('NUM_BIN_TEF').AsString:= qryRetaguarda2.FieldByName('NUM_BIN_TEF').AsString;
               ClientDataSetCartao.FieldByName('NUM_NSU_HOST_TEF').AsString:= qryRetaguarda2.FieldByName('NUM_NSU_HOST_TEF').AsString;

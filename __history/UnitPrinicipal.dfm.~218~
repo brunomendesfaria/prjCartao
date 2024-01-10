@@ -202,12 +202,10 @@ object frmPrincipal: TfrmPrincipal
       Top = 1
       Width = 1304
       Height = 585
-      ActivePage = TabSheetTicketValores
+      ActivePage = TabSheet1
       Align = alClient
       TabOrder = 0
       OnChange = PageControlCartaoChange
-      ExplicitLeft = 2
-      ExplicitTop = -4
       object TabSheet1: TTabSheet
         Caption = 'Administradora'
         object DBGridBin: TDBGrid
@@ -563,6 +561,23 @@ object frmPrincipal: TfrmPrincipal
               FieldName = 'VALOR'
               Width = 64
               Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FLG_ENCONTRADO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'COD_INTERNO'
+              Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VAL_REP'
+              Visible = True
             end>
         end
       end
@@ -812,8 +827,6 @@ object frmPrincipal: TfrmPrincipal
       object TabSheetTicketValores: TTabSheet
         Caption = 'Ticket Valores por Data'
         ImageIndex = 3
-        ExplicitLeft = 3
-        ExplicitTop = 16
         object DBGTicketValores: TDBGrid
           Left = 0
           Top = 0
@@ -827,6 +840,36 @@ object frmPrincipal: TfrmPrincipal
           TitleFont.Height = -11
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'DESCRICAO_EVENTO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA'
+              Visible = True
+            end>
+        end
+        object DBGridTciketTaxaSint: TDBGrid
+          Left = 536
+          Top = 3
+          Width = 465
+          Height = 352
+          DataSource = DMTicket.DSTicketTaxaSint
+          TabOrder = 1
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Visible = False
           Columns = <
             item
               Expanded = False
