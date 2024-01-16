@@ -190,9 +190,6 @@ begin
 
         if not(qryRetaguarda.IsEmpty) then
         begin
-
-
-
           ClientDataSetCartao.Append;
           ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= qryRetaguarda.FieldByName('NUM_CGC').AsString;
           ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= qryRetaguarda.FieldByName('DES_LOJA').AsString;

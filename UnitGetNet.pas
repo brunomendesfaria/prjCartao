@@ -58,7 +58,6 @@ begin
           ClientDataSetCartao.FieldByName('DTA_EMISSAO').AsDateTime:= qryRetaguarda.FieldByName('DTA_EMISSAO').AsDateTime;
           ClientDataSetCartao.FieldByName('DTA_ENTRADA').AsDateTime:= qryRetaguarda.FieldByName('DTA_ENTRADA').AsDateTime;
 
-
           ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= qryRetaguarda.FieldByName('DTA_VENCIMENTO').AsDateTime;
           if acli.FieldByName('VENCIMENTO').AsDateTime <>  qryRetaguarda.FieldByName('DTA_VENCIMENTO').AsDateTime then
           begin
@@ -348,6 +347,7 @@ begin
              'AND COD_BANDEIRA = ' + IntToStr(ClientDataSetAdmBandCOD_BANDEIRA.AsInteger) +
              'AND FLG_QUITADO = '+ QuotedStr('N');
           ClientDataSetCartao.Filtered:= True;
+          ClientDataSetCartao.First;
 
           while not ClientDataSetCartao.Eof do
           begin
@@ -357,7 +357,6 @@ begin
             ClientDataSetCartao.Edit;
             ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:= qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
             ClientDataSetCartao.Post;
-
 
            ClientDataSetCartao.Next;
           end;
@@ -395,6 +394,7 @@ end;
 procedure TGetNet.GeraNumBorderoUnico(aMemo: TMemo);
 var
   vTrans: TDBXTransaction;
+
 begin
   InicializaObjeto(vTrans);
   IniciarTransacao(DmConexao.FDConnection);
@@ -406,13 +406,16 @@ begin
     ClientDataSetCartao.First;
     while not ClientDataSetCartao.Eof do
     begin
-      ClientDataSetCartao.Edit;
-      ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:= qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
-      ClientDataSetCartao.Post;
+      if ClientDataSetCartaoFLG_QUITADO.AsString = 'N' then
+      begin
+        ClientDataSetCartao.Edit;
+        ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:= qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
+        ClientDataSetCartao.Post;
 
-      qryAtualizaTitulo.ParamByName('NUM_BORDERO').AsInteger:= qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
-      qryAtualizaTitulo.ParamByName('COD_CHAVE').AsInteger:= ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger;
-      qryAtualizaTitulo.ExecSQL;
+        qryAtualizaTitulo.ParamByName('NUM_BORDERO').AsInteger:= qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
+        qryAtualizaTitulo.ParamByName('COD_CHAVE').AsInteger:= ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger;
+        qryAtualizaTitulo.ExecSQL;
+      end;
       ClientDataSetCartao.Next;
     end;
 

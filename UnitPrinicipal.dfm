@@ -771,6 +771,7 @@ object frmPrincipal: TfrmPrincipal
             item
               Expanded = False
               FieldName = 'FLG_UPDATE'
+              Width = 64
               Visible = True
             end>
         end
