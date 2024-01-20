@@ -139,6 +139,7 @@ type
     SodexoAlimentaPass: TSodexoAlimentaPass;
     procedure fechaClient;
     procedure buscaTitulos(aCli: TClientDataSet);
+    function NaoValidacao: Boolean;
 var
   public
     { Public declarations }
@@ -241,24 +242,12 @@ end;
 procedure TfrmPrincipal.ButtonImportarClick(Sender: TObject);
 begin
 
+  if NaoValidacao  then
+    exit;
+
   case RadioGroup.ItemIndex of
     1:
     begin
-      if ComboBoxAdm.ItemIndex = -1 then
-      begin
-        MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
-        ComboBoxAdm.SetFocus;
-        exit;
-      end
-      else
-      begin
-        if RadioGroup.ItemIndex = -1 then
-        begin
-          MessageDlg('Seleciona o tipo do arquivo Venda ou Pagamento', MtWarning, [mbOk], 0);
-          RadioGroup.SetFocus;
-          exit;
-        end;
-
         try
           case ComboBoxAdm.ItemIndex of
             0:   //GetNet
@@ -324,7 +313,7 @@ begin
           end;
         finally
         end;
-      end;
+
     end;
   end;
 end;
@@ -609,7 +598,26 @@ begin
     end;
   finally
     form.DisposeOf;
+  end;
+end;
 
+function TfrmPrincipal.NaoValidacao: Boolean;
+begin
+  Result:= False;
+  if ComboBoxAdm.ItemIndex = -1 then
+  begin
+    MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
+    ComboBoxAdm.SetFocus;
+    Result:= True;
+    exit;
+  end;
+
+  if RadioGroup.ItemIndex = -1 then
+  begin
+    MessageDlg('Seleciona o tipo do arquivo Venda ou Pagamento', MtWarning, [mbOk], 0);
+    RadioGroup.SetFocus;
+    Result:= True;
+    exit;
   end;
 end;
 
