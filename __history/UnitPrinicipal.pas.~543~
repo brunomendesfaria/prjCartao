@@ -139,6 +139,7 @@ type
     SodexoAlimentaPass: TSodexoAlimentaPass;
     procedure fechaClient;
     procedure buscaTitulos(aCli: TClientDataSet);
+    function NaoValidacao: Boolean;
 var
   public
     { Public declarations }
@@ -190,7 +191,7 @@ begin
 
         if not(qryRetaguarda.IsEmpty) then
         begin
-          ClientDataSetCartao.Edit;
+          ClientDataSetCartao.Append;
           ClientDataSetCartao.FieldByName('NUM_CGC').AsString:= qryRetaguarda.FieldByName('NUM_CGC').AsString;
           ClientDataSetCartao.FieldByName('DES_LOJA').AsString:= qryRetaguarda.FieldByName('DES_LOJA').AsString;
           ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString:= qryRetaguarda.FieldByName('DES_PARCEIRO').AsString;
@@ -215,8 +216,8 @@ begin
           ClientDataSetCartao.FieldByName('QTD_PARCELA').AsInteger:= qryRetaguarda.FieldByName('QTD_PARCELA').AsInteger;
           ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger:= qryRetaguarda.FieldByName('COD_PARCEIRO').AsInteger;
           ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger:= qryRetaguarda.FieldByName('COD_CHAVE').AsInteger;
-          ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  qryBordero.FieldByName('PROXIMO_VALOR').AsInteger;
-          ClientDataSetCartao.Append;
+          ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  0;
+          ClientDataSetCartao.Post;
         end;
 
         ProgressBar2.Position:=aCli.RecNo;
@@ -241,24 +242,12 @@ end;
 procedure TfrmPrincipal.ButtonImportarClick(Sender: TObject);
 begin
 
+  if NaoValidacao  then
+    exit;
+
   case RadioGroup.ItemIndex of
     1:
     begin
-      if ComboBoxAdm.ItemIndex = -1 then
-      begin
-        MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
-        ComboBoxAdm.SetFocus;
-        exit;
-      end
-      else
-      begin
-        if RadioGroup.ItemIndex = -1 then
-        begin
-          MessageDlg('Seleciona o tipo do arquivo Venda ou Pagamento', MtWarning, [mbOk], 0);
-          RadioGroup.SetFocus;
-          exit;
-        end;
-
         try
           case ComboBoxAdm.ItemIndex of
             0:   //GetNet
@@ -287,12 +276,12 @@ begin
                 CliTicketValores.Open;
                 CliTicketValores.EmptyDataSet;
                 Ticket.importaArquivo(CliTicket,OpenDialog1.FileName,ProgressBar1);
-//                Ticket.BuscaTitulos(CliTicket, ProgressBar2);
+                Ticket.BuscaTitulos(CliTicket, ProgressBar2);
                 CliTicket.Close;
                 CliTicket.Open;
                 CliTicketValores.Close;
                 CliTicketValores.Open;
-                //alimentaClientDataSetAdmBand;
+                alimentaClientDataSetAdmBand;
                 BtnGeraBodero.Enabled:=True;
               end;
             end;
@@ -319,16 +308,12 @@ begin
                 ClientDataSetCartao.Open;
                 qryAtualizaNumBordero.ExecSQL;
                 DmRetaguarda.ClientDataSetCartao.IndexFieldNames:= 'FLG_ENCONTRADO';
-
               end;
-
             end;
           end;
-
         finally
-
         end;
-      end;
+
     end;
   end;
 end;
@@ -614,6 +599,23 @@ begin
   finally
     form.DisposeOf;
 
+  end;
+end;
+
+function TfrmPrincipal.NaoValidacao: Boolean;
+begin
+  if ComboBoxAdm.ItemIndex = -1 then
+  begin
+    MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
+    ComboBoxAdm.SetFocus;
+    exit;
+  end;
+
+  if RadioGroup.ItemIndex = -1 then
+  begin
+    MessageDlg('Seleciona o tipo do arquivo Venda ou Pagamento', MtWarning, [mbOk], 0);
+    RadioGroup.SetFocus;
+    exit;
   end;
 end;
 

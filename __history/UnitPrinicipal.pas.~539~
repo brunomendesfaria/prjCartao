@@ -139,6 +139,7 @@ type
     SodexoAlimentaPass: TSodexoAlimentaPass;
     procedure fechaClient;
     procedure buscaTitulos(aCli: TClientDataSet);
+    function validacao: Boolean;
 var
   public
     { Public declarations }
@@ -158,7 +159,7 @@ uses UDmRetaguarda, UDmGetNet, UnitProgressoImportacao, UnitPesqTitCart,
 
 procedure TfrmPrincipal.BtnGeraBoderoClick(Sender: TObject);
 begin
-   if not DmGetNet.ClientDataSetGetNet.IsEmpty then
+  if not DmGetNet.ClientDataSetGetNet.IsEmpty then
   begin
     if DmRetaguarda.ClientDataSetAdmBand.RecordCount  = 1 then
       GetNet.GeraNumBorderoUnico(Memo1);
@@ -241,24 +242,11 @@ end;
 procedure TfrmPrincipal.ButtonImportarClick(Sender: TObject);
 begin
 
+  validacao;
+
   case RadioGroup.ItemIndex of
     1:
     begin
-      if ComboBoxAdm.ItemIndex = -1 then
-      begin
-        MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
-        ComboBoxAdm.SetFocus;
-        exit;
-      end
-      else
-      begin
-        if RadioGroup.ItemIndex = -1 then
-        begin
-          MessageDlg('Seleciona o tipo do arquivo Venda ou Pagamento', MtWarning, [mbOk], 0);
-          RadioGroup.SetFocus;
-          exit;
-        end;
-
         try
           case ComboBoxAdm.ItemIndex of
             0:   //GetNet
@@ -324,7 +312,7 @@ begin
           end;
         finally
         end;
-      end;
+
     end;
   end;
 end;
@@ -610,6 +598,23 @@ begin
   finally
     form.DisposeOf;
 
+  end;
+end;
+
+procedure TfrmPrincipal.validacao : Boolean;
+begin
+  if ComboBoxAdm.ItemIndex = -1 then
+  begin
+    MessageDlg('Seleciona uma administradora', MtWarning, [mbOk], 0);
+    ComboBoxAdm.SetFocus;
+    exit;
+  end;
+
+  if RadioGroup.ItemIndex = -1 then
+  begin
+    MessageDlg('Seleciona o tipo do arquivo Venda ou Pagamento', MtWarning, [mbOk], 0);
+    RadioGroup.SetFocus;
+    exit;
   end;
 end;
 
