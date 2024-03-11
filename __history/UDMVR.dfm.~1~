@@ -1,0 +1,9 @@
+object DmVR: TDmVR
+  OldCreateOrder = False
+  Height = 322
+  Width = 437
+  object FDVR: TFDQuery
+    Left = 168
+    Top = 112
+  end
+end

@@ -53,7 +53,9 @@ object DmRetaguarda: TDmRetaguarda
       ' TAB_LOJA.NUM_CGC = :NUM_CGC '
       ' AND TAB_FLUXO.DTA_EMISSAO = :DTA_EMISSAO '
       ' AND TAB_FLUXO.COD_AUTORIZACAO_TEF = :COD_AUTORIZACAO_TEF'
-      ' AND TAB_FLUXO.VAL_PARCELA = :VAL_PARCELA  ')
+      ' AND TAB_FLUXO.VAL_PARCELA = :VAL_PARCELA   '
+      ' AND TAB_FLUXO.NUM_PARCELA = :NUM_PARCELA'
+      '')
     Left = 32
     Top = 8
     ParamData = <
@@ -80,6 +82,10 @@ object DmRetaguarda: TDmRetaguarda
         DataType = ftFloat
         ParamType = ptInput
         Value = Null
+      end
+      item
+        Name = 'NUM_PARCELA'
+        ParamType = ptInput
       end>
     object qryRetaguardaNUM_CGC: TStringField
       FieldName = 'NUM_CGC'
@@ -502,8 +508,9 @@ object DmRetaguarda: TDmRetaguarda
       '   WHERE '
       '   TAB_LOJA.NUM_CGC = :NUM_CGC '
       '   AND TAB_FLUXO.DTA_EMISSAO = :DTA_EMISSAO '
-      '   AND TAB_FLUXO.VAL_PARCELA = :VAL_PARCELA')
-    Left = 72
+      '   AND TAB_FLUXO.VAL_PARCELA = :VAL_PARCELA'
+      '   AND TAB_FLUXO.NUM_PARCELA = :NUM_PARCELA')
+    Left = 48
     Top = 16
     ParamData = <
       item
@@ -523,6 +530,10 @@ object DmRetaguarda: TDmRetaguarda
         DataType = ftFloat
         ParamType = ptInput
         Value = Null
+      end
+      item
+        Name = 'NUM_PARCELA'
+        ParamType = ptInput
       end>
     object StringField3: TStringField
       FieldName = 'NUM_CGC'

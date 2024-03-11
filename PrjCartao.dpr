@@ -14,7 +14,9 @@ uses
   UnitProgressoImportacao in 'UnitProgressoImportacao.pas' {FrmProgressoImportacao},
   UnitPesqTitCart in 'UnitPesqTitCart.pas' {FormPesTitCart},
   UnitTicket in 'UnitTicket.pas',
-  uDmTciket in 'uDmTciket.pas' {DMTicket: TDataModule};
+  uDmTciket in 'uDmTciket.pas' {DMTicket: TDataModule},
+  UnitVR in 'UnitVR.pas',
+  UDMVR in 'UDMVR.pas' {DmVR: TDataModule};
 
 {$R *.res}
 
@@ -22,6 +24,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TDmConexao, DmConexao);
   Application.Run;
 end.

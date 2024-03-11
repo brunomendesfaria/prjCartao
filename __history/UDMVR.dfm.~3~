@@ -1,0 +1,10 @@
+object DmVR: TDmVR
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 322
+  Width = 437
+  object FDVR: TFDQuery
+    Left = 72
+    Top = 88
+  end
+end

@@ -1,0 +1,72 @@
+unit UDMVR;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TDmVR = class(TDataModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+//   procedure CarregarDados(const FileName: String; FDQuery: TFDQuery);
+  end;
+
+var
+  DmVR: TDmVR;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses UDmConexao;
+
+{$R *.dfm}
+
+
+procedure CarregarDados(const FileName: String; FDQuery: TFDQuery);
+var
+  StreamReader: TStreamReader;
+  Linha: String;
+  Campos: TArray<String>;
+begin
+  // Certifique-se de que FDQuery está configurado corretamente, por exemplo,
+  // definindo sua propriedade SQL para uma instrução INSERT adequada, se necessário.
+
+  StreamReader := TStreamReader.Create(FileName, True);
+  try
+    //FDVR.Connection.StartTransaction; // Inicia uma transação para melhorar a performance
+    try
+      while not StreamReader.EndOfStream do
+      begin
+        Linha := StreamReader.ReadLine;
+        Campos := Linha.Split([',']); // Ajuste conforme o delimitador do seu arquivo
+
+        FDQuery.Append; // Prepara o FDQuery para inserir um novo registro
+
+        // Supondo que você tenha campos como 'Campo1', 'Campo2', etc., no seu banco de dados
+        FDQuery.FieldByName('Campo1').AsString := Campos[0];
+        // Para campos subsequentes, ajuste de acordo com a estrutura do seu arquivo e banco de dados
+        if Length(Campos) > 1 then FDQuery.FieldByName('Campo2').AsString := Campos[1];
+        if Length(Campos) > 2 then FDQuery.FieldByName('Campo3').AsString := Campos[2];
+        // Repita para outros campos conforme necessário...
+
+        FDQuery.Post; // Finaliza a inserção do registro atual
+      end;
+
+      FDQuery.Connection.Commit; // Efetiva a transação após todas as inserções
+    except
+      FDQuery.Connection.Rollback; // Desfaz as inserções em caso de erro
+      raise; // Re-lança o erro para ser tratado ou informado adequadamente
+    end;
+  finally
+    StreamReader.Free;
+  end;
+end;
+
+end.

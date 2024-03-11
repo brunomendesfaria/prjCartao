@@ -109,6 +109,7 @@ type
     TabSheetTicketValores: TTabSheet;
     DBGTicketValores: TDBGrid;
     DBGridTciketTaxaSint: TDBGrid;
+    DBGridVR: TDBGrid;
     procedure Button1Click(Sender: TObject);
     procedure ButtonImportarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -130,6 +131,8 @@ type
     procedure DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure PesquisarClick(Sender: TObject);
+    procedure DBGridGetNetDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     BAscDesc: Boolean;
@@ -154,7 +157,7 @@ implementation
 {$R *.dfm}
 
 uses UDmRetaguarda, UDmGetNet, UnitProgressoImportacao, UnitPesqTitCart,
-  uDmTciket;
+  uDmTciket, UDmConexao;
 
 
 procedure TfrmPrincipal.BtnGeraBoderoClick(Sender: TObject);
@@ -310,6 +313,13 @@ begin
                 DmRetaguarda.ClientDataSetCartao.IndexFieldNames:= 'FLG_ENCONTRADO';
               end;
             end;
+            6:
+            begin
+
+              DBGridVR.BringToFront;
+
+
+            end;
           end;
         finally
         end;
@@ -398,11 +408,36 @@ begin
   end;
 end;
 
+procedure TfrmPrincipal.DBGridGetNetDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+
+  // Caso contrário, desenha a célula normalmente
+  DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+ // Primeiro, verifica se a linha é uma das que deve ser pintada
+  if (dmretaguarda.ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean) then
+  begin
+    // Verifica se a coluna atual é a 'DTA_VENCIMENTO' ou 'VAL_LIQUIDO'
+    if (Column.FieldName = 'DTA_VENCIMENTO') or (Column.FieldName = 'VAL_LIQUIDO') then
+    begin
+      // Define a cor de fundo para a célula, por exemplo, amarelo
+      DBGrid1.Canvas.Brush.Color := clYellow;
+
+      // Pinta o fundo da célula
+      DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+
+      // Agora, você pode optar por desenhar o texto novamente se necessário, usando
+      // DBGrid1.Canvas.TextOut ou similar, dependendo de como você quer que o texto apareça
+    end;
+  end;
+end;
+
 procedure TfrmPrincipal.DBGridGetNetDrawDataCell(Sender: TObject;
   const Rect: TRect; Field: TField; State: TGridDrawState);
 begin
    if DmGetNet.ClientDataSetGetNetFLG_ENCONTRADO.AsBoolean = False then
      (Sender as TDBGrid).Canvas.Brush.Color:= clRed;
+
 
 end;
 
@@ -500,6 +535,7 @@ end;
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
  TabSheetTicketValores.TabVisible:=False;
+ DmConexao:= TDmConexao.Create(Self);
  DmRetaguarda:= TDmRetaguarda.Create(Self);
  ClientDataSetAdministradora.CreateDataSet;
  dmGetNet:= TDmGetNet.Create(Self);
@@ -515,6 +551,12 @@ begin
       Cielo.DisposeOf;
   if Ticket<>nil then
      Ticket.DisposeOf;
+  if DmConexao<> nil then
+    DmConexao.DisposeOf;
+  if DmGetNet<>nil then
+    DmGetNet.DisposeOf;
+  if DMTicket<>nil then
+    DMTicket.DisposeOf;
 end;
 
 procedure TfrmPrincipal.PageControlCartaoChange(Sender: TObject);
@@ -544,7 +586,7 @@ begin
 
     if  DmGetNet.ClientDataSetGetNet.Locate('COD_INTERNO',  DmRetaguarda.ClientDataSetCartaoCOD_INTERNO.AsInteger,[]) then
     begin
-      form.Edit1.Text:= FloatToStr(DmGetNet.ClientDataSetGetNetVALOR_ORIGINAL.AsFloat);
+      form.Edit1.Text:= FloatToStr(DmGetNet.ClientDataSetGetNetVALOR_BRUTO.AsFloat);
       form.DateTimePicker.Date:= DmGetNet.ClientDataSetGetNetDATA_VENDA.AsDateTime;
     end;
 
@@ -581,9 +623,6 @@ begin
            ClientDataSetCartao.FieldByName('NUM_NSU_SITEF').AsString:= '0';
            ClientDataSetCartao.FieldByName('COD_AUTORIZACAO_TEF').AsString:= '0';
            ClientDataSetCartao.FieldByName('COD_ESTABELECIMENTO_TEF').AsString:= '0';
-           ClientDataSetCartao.FieldByName('VAL_TOTAL_NF').AsFloat:= 0;
-           ClientDataSetCartao.FieldByName('NUM_PARCELA').AsInteger:= 0;
-           ClientDataSetCartao.FieldByName('QTD_PARCELA').AsInteger:= 0;
            ClientDataSetCartao.FieldByName('COD_PARCEIRO').AsInteger:=  form.FDQueryCOD_PARCEIRO.AsInteger;
            ClientDataSetCartao.FieldByName('COD_CHAVE').AsInteger:= form.FDQueryCOD_CHAVE.AsInteger;
            ClientDataSetCartao.FieldByName('NUM_BORDERO').AsInteger:=  0;

@@ -43,7 +43,8 @@ begin
         qryRetaguarda.ParamByName('NUM_CGC').AsString:= '03008421000157';
         qryRetaguarda.ParamByName('DTA_EMISSAO').AsDate:= aCli.FieldByName('DATA_VENDA').AsDateTime;
         qryRetaguarda.ParamByName('COD_AUTORIZACAO_TEF').AsString := iif(limpaLetras(aCli.FieldByName('AUTORIZACAO').AsString)='',0 ,limpaLetras(aCli.FieldByName('AUTORIZACAO').AsString));
-        qryRetaguarda.ParamByName('VAL_PARCELA').AsFloat:= aCli.FieldByName('VALOR_ORIGINAL').AsFloat;
+        qryRetaguarda.ParamByName('VAL_PARCELA').AsFloat:= aCli.FieldByName('VALOR_BRUTO').AsFloat;
+        qryRetaguarda.ParamByName('NUM_PARCELA').AsFloat:= aCli.FieldByName('PARCELA').AsFloat;
         qryRetaguarda.Open;
 
         if not(qryRetaguarda.IsEmpty) then
@@ -65,14 +66,12 @@ begin
             ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
           end;
 
-
           ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda.FieldByName('VAL_LIQUIDO').AsFloat;
           if qryRetaguardaVAL_LIQUIDO.AsFloat <> aCli.FieldByName('LIQUIDO').AsFloat then
           begin
             ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= aCli.FieldByName('LIQUIDO').AsFloat;
             ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
           end;
-
 
           ClientDataSetCartao.FieldByName('VAL_PARCELA').AsFloat:= qryRetaguarda.FieldByName('VAL_PARCELA').AsFloat;
           ClientDataSetCartao.FieldByName('COD_ADMINISTRADORA_TEF').AsString:= qryRetaguarda.FieldByName('COD_ADMINISTRADORA_TEF').AsString;
@@ -101,7 +100,8 @@ begin
           qryRetaguarda2.Close;
           qryRetaguarda2.ParamByName('NUM_CGC').AsString:= '03008421000157';
           qryRetaguarda2.ParamByName('DTA_EMISSAO').AsDate:= aCli.FieldByName('DATA_VENDA').AsDateTime;
-          qryRetaguarda2.ParamByName('VAL_PARCELA').AsFloat :=   aCli.FieldByName('VALOR_ORIGINAL').AsFloat;
+          qryRetaguarda2.ParamByName('VAL_PARCELA').AsFloat :=   aCli.FieldByName('VALOR_BRUTO').AsFloat;
+          qryRetaguarda2.ParamByName('NUM_PARCELA').AsFloat:= aCli.FieldByName('PARCELA').AsFloat;
           qryRetaguarda2.Open;
 
           if not qryRetaguarda2.IsEmpty then
@@ -275,6 +275,7 @@ begin
             ClientDataSetCartao.Post;
           end;
         end;
+
         ProgressBar.Position:= aCli.RecNo;
         aCli.Next;
       end;
