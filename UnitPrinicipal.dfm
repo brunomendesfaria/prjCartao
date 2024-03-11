@@ -202,7 +202,7 @@ object frmPrincipal: TfrmPrincipal
       Top = 1
       Width = 1304
       Height = 585
-      ActivePage = TabSheet1
+      ActivePage = TabSheet2
       Align = alClient
       TabOrder = 0
       OnChange = PageControlCartaoChange
@@ -291,7 +291,6 @@ object frmPrincipal: TfrmPrincipal
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
           OnDrawDataCell = DBGridGetNetDrawDataCell
-          OnDrawColumnCell = DBGridGetNetDrawColumnCell
           Columns = <
             item
               Expanded = False
@@ -797,6 +796,16 @@ object frmPrincipal: TfrmPrincipal
               Expanded = False
               FieldName = 'FLG_UPDATE'
               Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FLG_DATA_VENC'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FLG_VAL_LIQUIDO'
               Visible = True
             end>
         end

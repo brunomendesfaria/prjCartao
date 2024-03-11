@@ -131,8 +131,6 @@ type
     procedure DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure PesquisarClick(Sender: TObject);
-    procedure DBGridGetNetDrawColumnCell(Sender: TObject; const Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
     BAscDesc: Boolean;
@@ -379,7 +377,27 @@ begin
     (Sender as TDBGrid).Canvas.TextOut(Rect.Left + 2, Rect.Top,Column.Field.DisplayText);
 
   end;
+
+  DBGrid1.Canvas.Brush.Color := clWindow;
+  DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+
+  // Verifica a condição para a coluna 'DTA_VENCIMENTO'
+  if (Column.FieldName = 'DTA_VENCIMENTO') and (DMRETAGUARDA.ClientDataSetCartao.FieldByName('flg_data_venc').AsBoolean) then
+  begin
+    DBGrid1.Canvas.Brush.Color := $F0F0FF; // Azul claro
+    DBGrid1.Canvas.FillRect(Rect);
+    DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+  end;
+  // Verifica a condição para a coluna 'VAL_LIQUIDO'
+  if (Column.FieldName = 'VAL_LIQUIDO') and (DMRETAGUARDA.ClientDataSetCartao.FieldByName('flg_val_liquido').AsBoolean) then
+  begin
+    DBGrid1.Canvas.Brush.Color := $F0F0F0; // Vermelho claro (ajuste a cor conforme necessário)
+    DBGrid1.Canvas.FillRect(Rect);
+    DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+  end;
 end;
+
+
 
 procedure TfrmPrincipal.DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
@@ -405,30 +423,6 @@ begin
 
     (Sender as TDBGrid).Canvas.FillRect(Rect);
     (Sender as TDBGrid).Canvas.TextOut(Rect.Left + 2, Rect.Top,Column.Field.DisplayText);
-  end;
-end;
-
-procedure TfrmPrincipal.DBGridGetNetDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
-begin
-
-  // Caso contrário, desenha a célula normalmente
-  DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
- // Primeiro, verifica se a linha é uma das que deve ser pintada
-  if (dmretaguarda.ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean) then
-  begin
-    // Verifica se a coluna atual é a 'DTA_VENCIMENTO' ou 'VAL_LIQUIDO'
-    if (Column.FieldName = 'DTA_VENCIMENTO') or (Column.FieldName = 'VAL_LIQUIDO') then
-    begin
-      // Define a cor de fundo para a célula, por exemplo, amarelo
-      DBGrid1.Canvas.Brush.Color := clYellow;
-
-      // Pinta o fundo da célula
-      DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
-
-      // Agora, você pode optar por desenhar o texto novamente se necessário, usando
-      // DBGrid1.Canvas.TextOut ou similar, dependendo de como você quer que o texto apareça
-    end;
   end;
 end;
 

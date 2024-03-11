@@ -406,6 +406,12 @@ object DmRetaguarda: TDmRetaguarda
     object ClientDataSetCartaoFLG_UPDATE: TBooleanField
       FieldName = 'FLG_UPDATE'
     end
+    object ClientDataSetCartaoFLG_DATA_VENC: TBooleanField
+      FieldName = 'FLG_DATA_VENC'
+    end
+    object ClientDataSetCartaoFLG_VAL_LIQUIDO: TBooleanField
+      FieldName = 'FLG_VAL_LIQUIDO'
+    end
     object ClientDataSetCartaoQtdRegErp: TAggregateField
       FieldName = 'QtdRegErp'
       Active = True

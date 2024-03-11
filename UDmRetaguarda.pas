@@ -111,6 +111,8 @@ type
     ClientDataSetAdmBandDES_ADMINISTRADORA: TStringField;
     ClientDataSetAdmBandDES_BANDEIRA: TStringField;
     ClientDataSetCartaoFLG_UPDATE: TBooleanField;
+    ClientDataSetCartaoFLG_DATA_VENC: TBooleanField;
+    ClientDataSetCartaoFLG_VAL_LIQUIDO: TBooleanField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private

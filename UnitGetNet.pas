@@ -64,12 +64,14 @@ begin
           begin
             ClientDataSetCartao.FieldByName('DTA_VENCIMENTO').AsDateTime:= acli.FieldByName('VENCIMENTO').AsDateTime;
             ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
+            ClientDataSetCartao.FieldByName('FLG_DATA_VENC').AsBoolean:= True;
           end;
 
           ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= qryRetaguarda.FieldByName('VAL_LIQUIDO').AsFloat;
           if qryRetaguardaVAL_LIQUIDO.AsFloat <> aCli.FieldByName('LIQUIDO').AsFloat then
           begin
             ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat:= aCli.FieldByName('LIQUIDO').AsFloat;
+            ClientDataSetCartao.FieldByName('FLG_VAL_LIQUIDO').AsBoolean:= True;
             ClientDataSetCartao.FieldByName('FLG_UPDATE').AsBoolean:= True;
           end;
 
