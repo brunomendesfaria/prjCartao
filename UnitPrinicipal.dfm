@@ -202,7 +202,7 @@ object frmPrincipal: TfrmPrincipal
       Top = 1
       Width = 1304
       Height = 585
-      ActivePage = TabSheet2
+      ActivePage = TabSheet1
       Align = alClient
       TabOrder = 0
       OnChange = PageControlCartaoChange
@@ -860,6 +860,11 @@ object frmPrincipal: TfrmPrincipal
               Expanded = False
               FieldName = 'DATA_VENDA'
               Width = 64
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR'
               Visible = True
             end>
         end

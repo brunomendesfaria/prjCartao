@@ -113,6 +113,7 @@ type
     ClientDataSetCartaoFLG_UPDATE: TBooleanField;
     ClientDataSetCartaoFLG_DATA_VENC: TBooleanField;
     ClientDataSetCartaoFLG_VAL_LIQUIDO: TBooleanField;
+    ClientDataSetAdmBandVALOR: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
@@ -156,6 +157,14 @@ begin
         ClientDataSetAdmBand.FieldByName('COD_BANDEIRA').AsInteger:=      ClientDataSetCartao.FieldByName('COD_BANDEIRA').AsInteger;
         ClientDataSetAdmBand.FieldByName('DES_ADMINISTRADORA').AsString:= ClientDataSetCartao.FieldByName('DES_PARCEIRO').AsString;
         ClientDataSetAdmBand.FieldByName('DES_BANDEIRA').AsString:=      ClientDataSetCartao.FieldByName('DES_BANDEIRA').AsString;
+        ClientDataSetAdmBand.FieldByName('VALOR').AsFloat:=      ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat;
+        ClientDataSetAdmBand.post;
+      end
+      else
+      begin
+        ClientDataSetAdmBand.Edit;
+        ClientDataSetAdmBand.FieldByName('VALOR').AsFloat:=    ClientDataSetAdmBand.FieldByName('VALOR').AsFloat
+                                                                  + ClientDataSetCartao.FieldByName('VAL_LIQUIDO').AsFloat;
         ClientDataSetAdmBand.post;
       end;
       ClientDataSetCartao.Next;

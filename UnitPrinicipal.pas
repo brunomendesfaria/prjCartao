@@ -363,6 +363,8 @@ end;
 procedure TfrmPrincipal.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
+DBGrid1.Canvas.Brush.Color := clWindow;
+    DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
  if not (gdSelected in State) then
   begin
     if Odd((Sender as TDBGrid).DataSource.DataSet.RecNo) then
@@ -377,9 +379,6 @@ begin
     (Sender as TDBGrid).Canvas.TextOut(Rect.Left + 2, Rect.Top,Column.Field.DisplayText);
 
   end;
-
-  DBGrid1.Canvas.Brush.Color := clWindow;
-  DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 
   // Verifica a condição para a coluna 'DTA_VENCIMENTO'
   if (Column.FieldName = 'DTA_VENCIMENTO') and (DMRETAGUARDA.ClientDataSetCartao.FieldByName('flg_data_venc').AsBoolean) then

@@ -283,8 +283,8 @@ object DmRetaguarda: TDmRetaguarda
     Aggregates = <>
     AggregatesActive = True
     Params = <>
-    Left = 181
-    Top = 56
+    Left = 189
+    Top = 48
     object StringField1: TStringField
       FieldName = 'NUM_CGC'
       Origin = 'NUM_CGC'
@@ -462,6 +462,9 @@ object DmRetaguarda: TDmRetaguarda
     object ClientDataSetAdmBandDES_BANDEIRA: TStringField
       FieldName = 'DES_BANDEIRA'
       Size = 50
+    end
+    object ClientDataSetAdmBandVALOR: TFloatField
+      FieldName = 'VALOR'
     end
   end
   object qryRetaguarda2: TFDQuery
