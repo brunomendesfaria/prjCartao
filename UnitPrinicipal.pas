@@ -247,6 +247,20 @@ begin
     exit;
 
   case RadioGroup.ItemIndex of
+    0:
+    begin
+      with DmRetaguarda, DmGetNet  do
+      begin
+        DBGridGetNet.BringToFront;
+        fechaClient;
+        ClientDataSetGetNet.Open;
+        ClientDataSetGetNet.EmptyDataSet;
+        GetNet.importaArquivoVenda(ClientDataSetGetNet,OpenDialog1.FileName,ProgressBar1);
+        GetNet.BuscaTitulosConcVenda(ClientDataSetGetNet,ProgressBar2);
+        ClientDataSetCartao.Open;
+        alimentaClientDataSetAdmBand;
+      end;
+    end;
     1:
     begin
         try
@@ -484,6 +498,21 @@ begin
    begin
      qryRetaguarda.EmptyDataSet;
      qryRetaguarda.Close;
+   end;
+   if qryRetaguarda2.Active then
+   begin
+     qryRetaguarda2.EmptyDataSet;
+     qryRetaguarda2.Close;
+   end;
+   if FDQryConcVenda.Active then
+   begin
+     FDQryConcVenda.EmptyDataSet;
+     FDQryConcVenda.Close;
+   end;
+   if FDQryConcVenda2.Active then
+   begin
+     FDQryConcVenda2.EmptyDataSet;
+     FDQryConcVenda2.Close;
    end;
    if qryAtualizaTitulo.Active then
    begin

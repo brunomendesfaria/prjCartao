@@ -801,11 +801,13 @@ object frmPrincipal: TfrmPrincipal
             item
               Expanded = False
               FieldName = 'FLG_DATA_VENC'
+              Width = 64
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'FLG_VAL_LIQUIDO'
+              Width = 64
               Visible = True
             end>
         end

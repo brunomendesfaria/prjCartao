@@ -115,7 +115,7 @@ object DmGetNet: TDmGetNet
       FieldName = 'VALTOTAL'
       Active = True
       DisplayName = ''
-      Expression = 'SUM(LIQUIDO)'
+      Expression = 'SUM(VALOR_BRUTO)'
     end
   end
   object DataSourceGetNet: TDataSource
