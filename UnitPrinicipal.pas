@@ -110,6 +110,7 @@ type
     DBGTicketValores: TDBGrid;
     DBGridTciketTaxaSint: TDBGrid;
     DBGridVR: TDBGrid;
+    BtnAtualizar: TButton;
     procedure Button1Click(Sender: TObject);
     procedure ButtonImportarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -131,6 +132,8 @@ type
     procedure DBGrid1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure PesquisarClick(Sender: TObject);
+    procedure RadioGroupClick(Sender: TObject);
+    procedure BtnAtualizarClick(Sender: TObject);
   private
     { Private declarations }
     BAscDesc: Boolean;
@@ -141,6 +144,7 @@ type
     procedure fechaClient;
     procedure buscaTitulos(aCli: TClientDataSet);
     function NaoValidacao: Boolean;
+    function MontaQuery(taxa,vencimento:Boolean):String;
 var
   public
     { Public declarations }
@@ -157,6 +161,37 @@ implementation
 uses UDmRetaguarda, UDmGetNet, UnitProgressoImportacao, UnitPesqTitCart,
   uDmTciket, UDmConexao;
 
+
+procedure TfrmPrincipal.BtnAtualizarClick(Sender: TObject);
+begin
+ //montar update para atualizar fluxo
+                       { TODO : pegar a data de vencimento da operadora de cartao para percorrer e atualziar a tab_fluxo. }
+  try
+    DmRetaguarda.ClientDataSetCartao.First;
+    while DmRetaguarda.ClientDataSetCartao.Eof do
+    begin
+      DmRetaguarda.FDQryAtualizaTitulo.Close;
+
+      if DmRetaguarda.ClientDataSetCartaoFLG_DATA_VENC.AsBoolean then
+      begin
+        DmRetaguarda.FDQryAtualizaTitulo.SQL.Add(MontaQuery(False,True));
+        DmRetaguarda.FDQryAtualizaTitulo.ParamByName('COD_CHAVE').AsInteger:=  DmRetaguarda.ClientDataSetCartaoCOD_CHAVE.AsInteger;
+        DmRetaguarda.FDQryAtualizaTitulo.ParamByName('DTA_VENCIMENTO').AsDate:=  DmRetaguarda.ClientDataSetCartaoCOD_CHAVE.AsInteger;
+
+      end;
+      DmRetaguarda.ClientDataSetCartao.Next;
+    end;
+
+    DmRetaguarda.FDQryAtualizaTitulo.Close;
+    DmRetaguarda.FDQryAtualizaTitulo.SQL.Add();
+
+
+  finally
+
+  end;
+
+
+end;
 
 procedure TfrmPrincipal.BtnGeraBoderoClick(Sender: TObject);
 begin
@@ -581,6 +616,23 @@ begin
     DMTicket.DisposeOf;
 end;
 
+function TfrmPrincipal.MontaQuery(taxa,vencimento:Boolean):String;
+begin
+  Result := 'UPDATE TAB_FLUXO SET ';
+
+  if taxa then
+    Result := Result + 'VAL_TAXA_ADM = :VAL_TAXA_ADM '; // Suponho que você queira adicionar algo mais aqui
+
+  // Se ambos os campos são verdadeiros, adiciona uma vírgula
+  if taxa and vencimento then
+    Result := Result + ', ';
+
+  if vencimento then
+    Result := Result + 'DTA_VENCIMENTO = :DTA_VENCIMENTO '; // E aqui também
+
+  Result := Result + 'WHERE COD_CHAVE = :COD_CHAVE';
+end;
+
 procedure TfrmPrincipal.PageControlCartaoChange(Sender: TObject);
 begin
   if DmRetaguarda.ClientDataSetCartaoCOD_INTERNO.AsInteger > 0 then
@@ -659,6 +711,23 @@ begin
     end;
   finally
     form.DisposeOf;
+  end;
+end;
+
+procedure TfrmPrincipal.RadioGroupClick(Sender: TObject);
+begin
+  case RadioGroup.ItemIndex of
+    0:
+    begin
+      BtnGeraBodero.Visible:=False;
+      BtnAtualizar.Visible:=True;
+    end;
+    1:
+    begin
+      BtnGeraBodero.Visible:=True;
+      BtnAtualizar.Visible:=False;
+    end;
+
   end;
 end;
 

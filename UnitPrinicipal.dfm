@@ -177,6 +177,7 @@ object frmPrincipal: TfrmPrincipal
         'Venda'
         'Pagamento')
       TabOrder = 11
+      OnClick = RadioGroupClick
     end
     object DtaPagtoTicket: TDateTimePicker
       Left = 427
@@ -187,6 +188,16 @@ object frmPrincipal: TfrmPrincipal
       Time = 0.793764201385784000
       TabOrder = 12
       Visible = False
+    end
+    object BtnAtualizar: TButton
+      Left = 86
+      Top = 139
+      Width = 75
+      Height = 25
+      Caption = 'Atualizar'
+      Enabled = False
+      TabOrder = 13
+      OnClick = BtnAtualizarClick
     end
   end
   object Panel1: TPanel
@@ -202,7 +213,7 @@ object frmPrincipal: TfrmPrincipal
       Top = 1
       Width = 1304
       Height = 585
-      ActivePage = TabSheet1
+      ActivePage = TabSheet2
       Align = alClient
       TabOrder = 0
       OnChange = PageControlCartaoChange

@@ -239,8 +239,8 @@ object DmRetaguarda: TDmRetaguarda
       'where '
       'cod_chave = :cod_chave'
       'and flg_quitado = '#39'N'#39)
-    Left = 55
-    Top = 70
+    Left = 159
+    Top = 14
     ParamData = <
       item
         Name = 'NUM_BORDERO'
@@ -264,8 +264,8 @@ object DmRetaguarda: TDmRetaguarda
       '  TAB_PROXIMO_CODIGO'
       'WHERE '
       '  CAMPO = '#39'COD_BORDERO'#39' ')
-    Left = 52
-    Top = 119
+    Left = 236
+    Top = 7
     object qryBorderoPROXIMO_VALOR: TBCDField
       FieldName = 'PROXIMO_VALOR'
       Origin = 'PROXIMO_VALOR'
@@ -276,15 +276,15 @@ object DmRetaguarda: TDmRetaguarda
   end
   object DataSourceCartao: TDataSource
     DataSet = ClientDataSetCartao
-    Left = 181
-    Top = 16
+    Left = 309
+    Top = 8
   end
   object ClientDataSetCartao: TClientDataSet
     Aggregates = <>
     AggregatesActive = True
     Params = <>
-    Left = 189
-    Top = 48
+    Left = 317
+    Top = 40
     object StringField1: TStringField
       FieldName = 'NUM_CGC'
       Origin = 'NUM_CGC'
@@ -435,14 +435,14 @@ object DmRetaguarda: TDmRetaguarda
       'SET PROXIMO_VALOR = PROXIMO_VALOR + 1 '
       'WHERE '
       'CAMPO = '#39'COD_BORDERO'#39)
-    Left = 56
-    Top = 176
+    Left = 24
+    Top = 72
   end
   object ClientDataSetAdmBand: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 336
-    Top = 32
+    Left = 392
+    Top = 8
     object ClientDataSetAdmBandCOD_ADMINISTRADORA: TIntegerField
       FieldName = 'COD_ADMINISTRADORA'
     end
@@ -689,8 +689,8 @@ object DmRetaguarda: TDmRetaguarda
   end
   object DataSourceCartaoBandeira: TDataSource
     DataSet = ClientDataSetAdmBand
-    Left = 349
-    Top = 58
+    Left = 405
+    Top = 34
   end
   object FDQryConcVenda: TFDQuery
     Connection = DmConexao.FDConnection
@@ -744,8 +744,8 @@ object DmRetaguarda: TDmRetaguarda
       ' AND TAB_FLUXO.VAL_PARCELA = :VAL_PARCELA   '
       ' AND TAB_FLUXO.NUM_PARCELA = :NUM_PARCELA'
       '')
-    Left = 32
-    Top = 240
+    Left = 24
+    Top = 136
     ParamData = <
       item
         Name = 'NUM_CGC'
@@ -969,8 +969,8 @@ object DmRetaguarda: TDmRetaguarda
       '   AND TAB_FLUXO.DTA_EMISSAO = :DTA_EMISSAO '
       '   AND TAB_FLUXO.VAL_PARCELA = :VAL_PARCELA'
       '   AND TAB_FLUXO.NUM_PARCELA = :NUM_PARCELA')
-    Left = 56
-    Top = 288
+    Left = 40
+    Top = 152
     ParamData = <
       item
         Name = 'NUM_CGC'
@@ -1189,8 +1189,8 @@ object DmRetaguarda: TDmRetaguarda
       ' AND TAB_FLUXO.VAL_PARCELA = :VAL_PARCELA   '
       ' AND TAB_FLUXO.NUM_PARCELA = :NUM_PARCELA'
       '')
-    Left = 96
-    Top = 240
+    Left = 56
+    Top = 160
     ParamData = <
       item
         Name = 'NUM_CGC'
@@ -1361,5 +1361,9 @@ object DmRetaguarda: TDmRetaguarda
     object StringField47: TStringField
       FieldName = 'FLG_QUITADO'
     end
+  end
+  object FDQryAtualizaTitulo: TFDQuery
+    Left = 168
+    Top = 128
   end
 end

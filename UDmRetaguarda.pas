@@ -195,6 +195,7 @@ type
     BCDField44: TBCDField;
     BCDField45: TBCDField;
     StringField47: TStringField;
+    FDQryAtualizaTitulo: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
